@@ -62,3 +62,8 @@ typings/
 
 dump
 Logs
+
+# Local Netlify folder
+.netlify
+
+build
