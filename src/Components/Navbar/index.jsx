@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Icon } from 'antd';
-import Search from '../Search/Search';
+import Search from '../Search';
 import { rootPath, placesPath, navBarElement, noDisplay,
   navBarBoxShadow, minimumScrollDistance, maximumScrollDistance,
   customNavElement
-} from '../../utils';
+} from '../../settings';
 
 class NavBar extends Component {
   componentDidMount() {

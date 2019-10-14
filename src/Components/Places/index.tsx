@@ -7,7 +7,7 @@ import { placesQuery, placesIdQuery } from './query';
 import './places.scss';
 import { client } from '../../index';
 import { defaultPlaceProps, networkOnly, placesTypename, activePlaceElement,
-  cacheFirst, GOOGLE_MAPS_KEY} from '../../utils';
+  cacheFirst, GOOGLE_MAPS_KEY} from '../../settings';
 import Spinner from '../Preloader/Spinner';
 
 interface IProps {

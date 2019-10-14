@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import App from '../Components/Main/App';
 import Collections from '../Components/Collections';
 import Collection from '../Components/Collection';
-import NavBar from '../Components/Navbar/NavBar';
+import NavBar from '../Components/Navbar';
 import Publications from '../Components/Publications';
 import Places from '../Components/Places';
 

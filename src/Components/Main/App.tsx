@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import TopHeader from './TopHeader';
-import { artBowl, putto, carved, manotation,
-  lovejoy, colors, technic, gallery } from '../../assets';
-import { navBarElement, customNavElement, horizontalScrollDistance } from '../../utils';
+import {
+  artBowl, putto, carved, manotation,
+  lovejoy, colors, technic, gallery,
+} from '../../assets';
+import {
+  navBarElement, customNavElement, horizontalScrollDistance,
+} from '../../settings';
 
 let imageToggleCount = 1;
 

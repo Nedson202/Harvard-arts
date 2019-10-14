@@ -1,7 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
-import './backToTop.scss';
 import { Icon } from 'antd';
-import { minimumScrollDistance } from '../../utils';
+
+import './backToTop.scss';
+import { minimumScrollDistance } from '../../settings';
 
 interface IState {
   displayBackToTop: boolean;

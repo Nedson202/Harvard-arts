@@ -11,11 +11,10 @@ import Spinner from '../Preloader/Spinner';
 import SkeletonScreen from '../Preloader/SkeletonScreen';
 import noImage from '../../assets/no-image-icon.jpg';
 import searchQuery from '../Search/query';
-import BackToTop from '../BackToTop/BackToTop';
+import BackToTop from '../BackToTop';
 import {
   searchPath, collectionsTypename, readQueryError,
-  notAvailableText
-} from '../../utils';
+} from '../../settings';
 
 let page = 1;
 let from = 25;
@@ -143,50 +142,18 @@ class Collections extends Component {
       <Fragment>
         {
           data.map((element) => {
-            const {
-              technique, id, culture, classification, department,
-              accessionyear, primaryimageurl,
-            } = element;
-            const content = (
-              <div>
-                <p>
-                  <b>Technique:</b>
-                  {' '}
-                  {technique || notAvailableText}
-                </p>
-                <p>
-                  <b>AccessionYear:</b>
-                  {' '}
-                  {accessionyear || notAvailableText}
-                </p>
-                <p>
-                  <b>Culture:</b>
-                  {' '}
-                  {culture || notAvailableText}
-                </p>
-                <p>
-                  <b>Classification:</b>
-                  {' '}
-                  {classification || notAvailableText}
-                </p>
-                <p>
-                  <b>Department:</b>
-                  {' '}
-                  {department || notAvailableText}
-                </p>
-              </div>
-            );
+            const { id, primaryimageurl } = element;
+
             if (!primaryimageurl) {
               element.primaryimageurl = noImage;
             }
+
             return (
-              // <Popover key={id} content={content} title={`Century: ${century || notAvailableText}`} placement="left">
               <Link to={`/collections/${id}`}>
                 <div className="collections-photo__unit">
                   <ImageCard imageData={element} />
                 </div>
               </Link>
-              // </Popover>
             );
           })
         }
@@ -198,6 +165,7 @@ class Collections extends Component {
     if (loading) {
       return <SkeletonScreen />;
     }
+
     if (error) {
       return (
         <Fragment>
@@ -205,6 +173,7 @@ class Collections extends Component {
         </Fragment>
       );
     }
+
     if (!loading && records.length) {
       return (
         <Fragment>
@@ -226,9 +195,11 @@ class Collections extends Component {
 
   renderLoadMoreOrSpinner = () => {
     const { loadingIndicator } = this.state;
+
     if (!loadingIndicator) {
       return this.loadMoreButton();
     }
+
     return <Spinner />
   }
 

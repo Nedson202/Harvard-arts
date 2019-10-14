@@ -2,14 +2,16 @@ import React, { Component, Fragment } from 'react';
 import { Query } from 'react-apollo';
 import { Icon } from 'antd';
 import PropTypes from 'prop-types';
+
 import './collection.scss';
-import { singleObjectQuery } from '../Collections/query';
 import SkeletonScreen from '../Preloader/SkeletonScreen';
-import BackToTop from '../BackToTop/BackToTop';
+import BackToTop from '../BackToTop';
+
+import { singleObjectQuery } from '../Collections/query';
 import {
   fieldsNeeded, networkOnly, backgroundOverlay,
   cancelBackgroundOverlay, notAvailableText, navBarElement, noDisplay,
-} from '../../utils';
+} from '../../settings';
 
 class Collection extends Component {
   state = {

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Form, Icon, Input, Button } from 'antd';
 import './authentication.scss';
 import { noDisplay, antIcomColor, whiteBackground,
-  formElement, navBarElement} from '../../utils';
+  formElement, navBarElement} from '../../settings';
 
 interface IProps {
   form: any;

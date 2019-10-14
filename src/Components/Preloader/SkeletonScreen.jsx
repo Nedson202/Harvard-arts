@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Skeleton } from 'antd';
 
-class SkeletonScreen extends Component {
-  render() {
-    return (
-      <div className="skeleton-screen">
-        <Skeleton active />
-      </div>
-    );
-  }
-}
+const SkeletonScreen = () => {
+  return (
+    <div className="skeleton-screen">
+      <Skeleton active />
+    </div>
+  );
+};
 
 export default SkeletonScreen;

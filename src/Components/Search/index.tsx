@@ -4,14 +4,16 @@ import queryString from 'querystring';
 import setQuery from 'set-query-string';
 import debounce from 'lodash.debounce';
 import { compose, withApollo } from 'react-apollo';
+
+import Spinner from '../Preloader/Spinner';
+
 import searchQuery from './query';
 import { objectsQuery } from '../Collections/query';
-import Spinner from '../Preloader/Spinner';
-import { runNetworkQuery } from '../../helper';
+import { runNetworkQuery } from '../../utils';
 import {
   searchPath, previousLocation, collectionsPath, clipBoardDataType,
-  searchBoxBorderStyle, searchBoxElement, collectionsTypename,
-} from '../../utils';
+  collectionsTypename,
+} from '../../settings';
 
 interface IProps {
   client: {

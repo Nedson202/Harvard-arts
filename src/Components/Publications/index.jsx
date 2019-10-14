@@ -4,12 +4,14 @@ import { Tooltip, Button } from 'antd';
 import Dragula from 'react-dragula';
 // import PropTypes from 'prop-types';
 import HorizontalTimeline from 'react-horizontal-timeline';
-import './publications.scss';
+
 import SkeletonScreen from '../Preloader/SkeletonScreen';
-import publicationQuery from './query';
 import Spinner from '../Preloader/Spinner';
-import BackToTop from '../BackToTop/BackToTop';
-import { dateValues, publicationsTypename, notAvailableText } from '../../utils';
+import BackToTop from '../BackToTop';
+
+import './publications.scss';
+import publicationQuery from './query';
+import { dateValues, publicationsTypename, notAvailableText } from '../../settings';
 
 let page;
 
@@ -56,13 +58,16 @@ class Publications extends Component {
         const {
           publicationData: { publications } = {},
         } = fetchMoreResult;
+
         if (!fetchMoreResult) return prev;
+
         page = page + 1;
         this.setState({
           loadingIndicator: false,
           paginatedResult: publications.length,
           paginationActive: true,
         });
+
         return Object.assign({}, prev, {
           publicationData: {
             publications: [...prev.publicationData.publications,
@@ -78,6 +83,7 @@ class Publications extends Component {
     let loadMoreButton;
     const { paginatedResult, paginationActive } = this.state;
     const isPaginatedResult = paginatedResult === 0 || paginatedResult < 18;
+
     if (!paginationActive && reultLength >= 18) {
       loadMoreButton = (
         <Fragment>
@@ -94,6 +100,7 @@ class Publications extends Component {
     } else {
       loadMoreButton = <h3>No more result to show</h3>;
     }
+  
     return loadMoreButton;
   }
 
