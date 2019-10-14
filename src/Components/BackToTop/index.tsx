@@ -2,19 +2,18 @@ import React, { PureComponent, Fragment } from 'react';
 import { Icon } from 'antd';
 
 import './backToTop.scss';
-import { minimumScrollDistance } from '../../settings';
+import { MINIMUM_SCROLL_DISTANCE, SCROLL } from '../../settings';
 
-interface IState {
-  displayBackToTop: boolean;
-}
+import { IBackToTopState } from '../../../types';
 
-class BackToTop extends PureComponent<IState> {
+class BackToTop extends PureComponent<any, IBackToTopState> {
   public state = {
     displayBackToTop: false,
   };
 
   public render() {
     const { displayBackToTop } = this.state;
+
     return (
       <Fragment>
         {this.renderBackToTop(displayBackToTop)}
@@ -23,32 +22,33 @@ class BackToTop extends PureComponent<IState> {
   }
 
   public componentDidMount() {
-    window.addEventListener('scroll', this.handlePageScroll, {
+    window.addEventListener(SCROLL, this.handlePageScroll, {
       capture: true,
       passive: true,
     });
   }
 
   public componentWillUnmount() {
-    (window.addEventListener as (
-      type: string,
-      listener: (event: Event) => void,
-      options?: { capture?: boolean, passive?: boolean },
-    ) => void)('scroll', this.handlePageScroll, {
+    window.addEventListener(SCROLL, this.handlePageScroll, {
       capture: true,
       passive: true,
     });
   }
 
   private handlePageScroll = () => {
-    if (document.body.scrollTop < minimumScrollDistance
-      || document.documentElement.scrollTop < minimumScrollDistance) {
-      this.setState({ displayBackToTop: false });
+    let displayBackToTop = false;
+
+    if (document.body.scrollTop > MINIMUM_SCROLL_DISTANCE
+      || document.documentElement.scrollTop > MINIMUM_SCROLL_DISTANCE) {
+      displayBackToTop = true;
     }
-    if (document.body.scrollTop > minimumScrollDistance
-      || document.documentElement.scrollTop > minimumScrollDistance) {
-      this.setState({ displayBackToTop: true });
+
+    if (document.body.scrollTop < MINIMUM_SCROLL_DISTANCE
+      || document.documentElement.scrollTop < MINIMUM_SCROLL_DISTANCE) {
+      displayBackToTop = false;
     }
+
+    this.setState({ displayBackToTop });
   }
 
   private scrollToTop = () => {

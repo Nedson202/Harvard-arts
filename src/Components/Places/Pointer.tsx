@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Popover } from 'antd';
+
 import marker from '../../assets/marker.png';
 
 interface IProps {

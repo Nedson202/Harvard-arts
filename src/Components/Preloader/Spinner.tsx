@@ -2,19 +2,26 @@ import React from 'react';
 import { Spin, Icon } from 'antd';
 import PropTypes from 'prop-types';
 
-const Spinner = props => {
+import { ISpinnerProps } from '../../../types';
+
+const Spinner = (props: ISpinnerProps) => {
+  let spinnerTip = 'Loading...';
   const { disableTip, size } = props;
   const antIcon =
   <Icon
-    type="loading"
+    type='loading'
     style={{ fontSize: size }}
-    spin
+    spin={true}
   />;
+
+  if (disableTip) {
+    spinnerTip = '';
+  }
 
   return (
     <Spin
       indicator={antIcon}
-      tip={disableTip || 'Loading...'}
+      tip={spinnerTip}
     />
   );
 };
@@ -26,7 +33,7 @@ Spinner.propTypes = {
 
 Spinner.defaultProps = {
   disableTip: false,
-  size: 40
+  size: 40,
 };
 
 export default Spinner;

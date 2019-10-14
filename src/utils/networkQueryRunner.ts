@@ -1,6 +1,4 @@
-interface ClientObject {
-  query: ({}) => {};
-}
+import { ClientObject } from './../../types';
 
 const runNetworkQuery =
   (client: ClientObject, query: string, value: string): Promise<object> => {

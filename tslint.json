@@ -1,8 +1,14 @@
 {
-  "extends": ["tslint:latest", "tslint-react", "tslint:recommended"],
+  "extends": [
+    "tslint:latest",
+    "tslint-react",
+    "tslint:recommended"
+  ],
   "rules": {
     "max-line-length": {
-      "options": [120]
+      "options": [
+        120
+      ]
     },
     "new-parens": true,
     "no-arg": true,
@@ -11,18 +17,35 @@
     "no-consecutive-blank-lines": false,
     "no-console": {
       "severity": "warning",
-      "options": ["debug", "info", "log", "time", "timeEnd", "trace"]
+      "options": [
+        "debug",
+        "info",
+        "log",
+        "time",
+        "timeEnd",
+        "trace"
+      ]
     },
-    "quotemark": [true, "single"],
-    "indent": [true, "spaces", 2],
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
     "interface-name": false,
     "ordered-imports": false,
     "object-literal-sort-keys": false,
-    "jsx-wrap-multiline": false
+    "jsx-wrap-multiline": true,
+    "jsx-no-multiline-js": false
   },
   "jsRules": {
     "max-line-length": {
-      "options": [120]
+      "options": [
+        120
+      ]
     }
   }
 }

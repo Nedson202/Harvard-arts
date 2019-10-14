@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
+
 import App from '../Components/Main/App';
 import Collections from '../Components/Collections';
 import Collection from '../Components/Collection';

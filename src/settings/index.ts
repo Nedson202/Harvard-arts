@@ -3,37 +3,33 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Search
-
-export const searchPath = '?search';
-export const previousLocation = 'previousLocation';
-export const collectionsPath = '/collections';
-export const clipBoardDataType = 'text/plain';
-export const searchBoxBorderStyle = '1px solid #005C97';
-export const searchBoxElement = 'searchBox';
-export const collectionsTypename = 'Object';
+export const SEARCH_PATH = '?search';
+export const PREVIOUS_LOCATION = 'PREVIOUS_LOCATION';
+export const COLLECTIONS_PATH = '/collections';
+export const CLIP_BOARD_DATA_TYPE = 'text/plain';
+export const COLLECTIONS_TYPENAME = 'Object';
 
 // Publications
-export const dateValues = [
+export const DATE_VALUES = [
   '1999', '2000', '2001', '2002', '2003',
   '2013', '2014', '2015', '2016', '2017', '2018',
 ];
-export const publicationsTypename = 'Publications';
-export const publicationPage = 1;
+export const PUBLICATIONS_TYPENAME = 'Publications';
 
-export const notAvailableText = 'Not Available';
+export const NOT_AVAILABLE_MESSAGE = 'Not Available';
 
 // Navbar
-export const rootPath = '/';
-export const navBarElement = 'nav-bar';
-export const customNavElement = 'custom-nav';
-export const noDisplay = 'none';
-export const navBarBoxShadow = 'rgba(0, 0, 0, 0.1) 0px 5px 15px, rgba(0, 0, 0, 0.1) 0px 4px 30px';
-export const minimumScrollDistance = 20;
-export const maximumScrollDistance = 25;
+export const ROOT_PATH = '/';
+export const NAV_BAR_ELEMENT = 'nav-bar';
+export const CUSTOM_NAV_ELEMENT = 'custom-nav';
+export const NO_DISPLAY = 'none';
+export const NAV_BAR_BOX_SHADOW = 'rgba(0, 0, 0, 0.1) 0px 5px 15px, rgba(0, 0, 0, 0.1) 0px 4px 30px';
+export const MINIMUM_SCROLL_DISTANCE = 20;
+export const MAXIMUM_SCROLL_DISTANCE = 25;
 
 // Places
-export const placesPath = '/places';
-export const defaultPlaceProps = {
+export const PLACES_PATH = '/places';
+export const DEFAULT_PLACE_PROPS = {
   center: {
     lat: 59.95,
     lng: 30.33,
@@ -52,23 +48,30 @@ export const defaultPlaceProps = {
   ],
   zoom: 7,
 };
-export const networkOnly = 'network-only';
-export const cacheFirst = 'cache-first';
-export const placesTypename = 'Places';
-export const activePlaceElement = 'activePlace';
-export const horizontalScrollDistance = 100;
-export const imageToggleCount = 1;
+export const NETWORK_ONLY = 'network-only';
+export const CACHE_FIRST = 'cache-first';
 
-export const readQueryError = 'Unable to run query on cache';
+export const PLACES_TYPENAME = 'Places';
+export const ACTIVE_PLACE_ELEMENT = 'activePlace';
+export const HORIZONTAL_SCROLL_DISTANCE = 100;
+export const IMAGE_TOGGLE_COUNT = 1;
+
+export const READ_QUERY_ERROR = 'Unable to run query on cache';
 
 // Collection
-export const fieldsNeeded = ['publications', 'exhibitions', 'century', 'classification',
-'contextualtext', 'department', 'copyright', 'details', 'provenance', 'accessionyear',
-'accessionmethod', 'title', 'creditline', 'culture', 'medium', 'primaryimageurl'];
-export const backgroundOverlay = 'rgba(0,0,0,0.6)';
-export const cancelBackgroundOverlay = 'rgba(0,0,0,0.0)';
-export const antIcomColor = 'rgba(0,0,0,.25)';
-export const whiteBackground = '#fff';
-export const formElement = 'form';
+export const FIELDS_NEEDED = [
+  'publications', 'exhibitions', 'century', 'classification',
+  'contextualtext', 'department', 'copyright', 'details', 'provenance',
+  'accessionyear', 'accessionmethod', 'title', 'creditline', 'culture',
+  'medium', 'primaryimageurl',
+];
+export const BACKGROUND_OVERLAY = 'rgba(0,0,0,0.6)';
+export const CANCEL_BACKGROUND_OVERLAY = 'rgba(0,0,0,0.0)';
+export const ANT_ICON_COLOR = 'rgba(0,0,0,.25)';
+export const WHITE_BACKGROUND = '#fff';
+export const FORM_ELEMENT = 'form';
 
 export const GOOGLE_MAPS_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY || '';
+
+export const SCROLL = 'scroll';
+export const MOUSE_DOWN = 'mousedown';

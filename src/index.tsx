@@ -26,14 +26,24 @@ const client = new ApolloClient({
   link: restLink,
 });
 
-render(
-  <ApolloProvider client={client}>
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
-  </ApolloProvider>,
-  document.getElementById('root'),
-);
+const renderDOM = () => {
+  render(
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </ApolloProvider>,
+    document.getElementById('root'),
+  );
+};
+
+renderDOM();
+
+if (module.hot) {
+  module.hot.accept('./routes', () => {
+    renderDOM();
+  });
+}
 
 serviceWorker.unregister();
 
