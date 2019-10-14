@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Icon, Input, Button } from 'antd';
 import './authentication.scss';
-import { noDisplay, antIcomColor, whiteBackground,
-  formElement, navBarElement} from '../../settings';
+import {
+  NO_DISPLAY, ANT_ICON_COLOR, WHITE_BACKGROUND,
+  FORM_ELEMENT, NAV_BAR_ELEMENT, SCROLL,
+} from '../../settings';
 
 interface IProps {
   form: any;
@@ -24,22 +26,26 @@ class NormalLoginForm extends Component<IProps, any> {
   }
 
   public closeForm = () => {
-    const formParent = document.getElementById(formElement);
-    const navBar = document.getElementById(navBarElement);
+    const formParent = document.getElementById(FORM_ELEMENT);
+    const navBar = document.getElementById(NAV_BAR_ELEMENT);
+
     if (!formParent || !navBar) {
       return;
     }
-    formParent.style.display = noDisplay;
-    document.body.style.overflow = 'scroll';
-    document.body.style.background = whiteBackground;
+
+    formParent.style.display = NO_DISPLAY;
+    document.body.style.overflow = SCROLL;
+    document.body.style.background = WHITE_BACKGROUND;
   }
 
   public toggleForm = () => {
     const { formOnDisplay } = this.state;
     let modifiedFormOnDisplay;
+
     if (formOnDisplay === 'Login') {
       modifiedFormOnDisplay = 'Signup';
     }
+
     if (formOnDisplay === 'Signup') {
       modifiedFormOnDisplay = 'Login';
     }
@@ -69,7 +75,7 @@ class NormalLoginForm extends Component<IProps, any> {
         >
           <Icon
             type='close'
-            style={{ color: antIcomColor }}
+            style={{ color: ANT_ICON_COLOR }}
             onClick={this.closeForm}
           />
         </span>
@@ -82,7 +88,7 @@ class NormalLoginForm extends Component<IProps, any> {
               }],
             })(
               <Input
-                prefix={<Icon type='user' style={{ color: antIcomColor }} />}
+                prefix={<Icon type='user' style={{ color: ANT_ICON_COLOR }} />}
                 placeholder='Email'
               />,
             )}
@@ -92,7 +98,7 @@ class NormalLoginForm extends Component<IProps, any> {
               rules: [{ required: true, message: 'Please input your Password!' }],
             })(
               <Input
-                prefix={<Icon type='lock' style={{ color: antIcomColor }} />}
+                prefix={<Icon type='lock' style={{ color: ANT_ICON_COLOR }} />}
                 type='password'
                 placeholder='Password'
               />,

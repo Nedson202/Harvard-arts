@@ -1,83 +1,104 @@
 import React, { Component, Fragment } from 'react';
 import { Query, withApollo } from 'react-apollo';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import './collections.scss';
 import { Button } from 'antd';
 import queryString from 'querystring';
-import { objectsQuery } from './query';
-import ImageCard from './ImageCard';
-import Spinner from '../Preloader/Spinner';
+
+import './collections.scss';
+
+import BackToTop from '../BackToTop';
+import ImageCard from '../ImageCard';
 import SkeletonScreen from '../Preloader/SkeletonScreen';
+import Spinner from '../Preloader/Spinner';
+
+import { objectsQuery } from './query';
 import noImage from '../../assets/no-image-icon.jpg';
 import searchQuery from '../Search/query';
-import BackToTop from '../BackToTop';
 import {
-  searchPath, collectionsTypename, readQueryError,
+  SEARCH_PATH, COLLECTIONS_TYPENAME, READ_QUERY_ERROR,
 } from '../../settings';
+
+import {
+  ICollectionsProps, CollectionImages, FetchMore,
+  CollectionsFetchMoreResult, CollectionsFetchMore,
+} from '../../../types';
 
 let page = 1;
 let from = 25;
 
-class Collections extends Component {
-  state = {
+class Collections extends Component<ICollectionsProps> {
+  public state = {
     loadingIndicator: false,
     searchResultCount: 0,
     activeSearchData: '',
-  }
+  };
 
-  setInputFromQuery() {
+  public setInputFromQuery() {
     const query = queryString.parse(window.location.search);
-    if (Object.keys(query)[0] && Object.keys(query)[0] === searchPath) {
-      const queryValue = Object.values(query)[0];
-      if (queryValue.trim().length) return queryValue;
+    const hasSearchProperty = Object.keys(query).includes(SEARCH_PATH);
+
+    const queryValue = query[SEARCH_PATH];
+
+    if (!hasSearchProperty) {
+      return;
     }
+
+    return queryValue;
   }
 
-  handleFetchMore = fetchMore => () => {
+  public handleFetchMore = (fetchMore: (arg0: FetchMore) => void) => () => {
     const activeSearchData = this.setInputFromQuery();
     this.setState({ loadingIndicator: true, activeSearchData });
     let newData = [];
+
     fetchMore({
       query: activeSearchData ? searchQuery : objectsQuery,
       variables: {
         size: 24,
         page,
         from,
-        search: activeSearchData
+        search: activeSearchData,
       },
-      updateQuery: (prev, { fetchMoreResult }) => {
+      updateQuery: (prev: any, { fetchMoreResult }: CollectionsFetchMore) => {
         const {
-          objects: { records } = {},
-          searchResults: { results = [] } = {}
-        } = fetchMoreResult;
+          objects: { records },
+          searchResults: { results = [] },
+        } = fetchMoreResult as CollectionsFetchMoreResult;
+
         newData = records;
+
         if (results.length !== 0) {
           newData = results;
         }
+
         if (activeSearchData) {
           from += 24;
         }
+
         if (!fetchMoreResult) {
           return prev;
         }
+
         this.setState({
           loadingIndicator: false,
           searchResultCount: newData.length,
         });
-        return Object.assign({}, prev, {
+
+        return {
+          ...prev,
           objects: {
             records: [...prev.objects.records,
             ...newData],
-            __typename: collectionsTypename
+            __typename: COLLECTIONS_TYPENAME,
           },
-        });
+        };
       },
     });
   }
 
-  readQueryFromCache() {
+  public readQueryFromCache() {
     const { client } = this.props;
+
     try {
       const cacheData = client.readQuery({
         query: objectsQuery,
@@ -90,21 +111,23 @@ class Collections extends Component {
       if (cacheData.objects.records) {
         return cacheData.objects.records;
       }
+
       return [];
     } catch (error) {
-      return readQueryError;
+      return READ_QUERY_ERROR;
     }
   }
 
-  loadMoreButton() {
+  public loadMoreButton() {
     const records = this.readQueryFromCache();
     const { activeSearchData, searchResultCount } = this.state;
     const lengthOfSearchResult = activeSearchData && searchResultCount >= 24;
     let loadMoreButton;
+
     if (records.length >= 24) {
       loadMoreButton = (
         <Fragment>
-          <Button size="large">Load More</Button>
+          <Button size='large'>Load More</Button>
         </Fragment>
       );
     }
@@ -112,14 +135,16 @@ class Collections extends Component {
     if (activeSearchData && !lengthOfSearchResult) {
       loadMoreButton = null;
     }
+
     return loadMoreButton;
   }
 
-  noResulFoundError() {
+  public noResulFoundError() {
     const records = this.readQueryFromCache();
+
     if (records.length < 1) {
       return (
-        <div className="collections-empty">
+        <div className='collections-empty'>
           <p>No result found</p>
           <ul>
             <li>You can modify your search query</li>
@@ -137,31 +162,33 @@ class Collections extends Component {
     }
   }
 
-  renderImages(data) {
+  public renderImages(data: CollectionImages[]) {
+    const mappedImages = data.map((element) => {
+      const { id, primaryimageurl } = element;
+
+      if (!primaryimageurl) {
+        element.primaryimageurl = noImage;
+      }
+
+      return (
+        <Link to={`/collections/${id}`} key={id}>
+          <div className='collections-photo__unit'>
+            <ImageCard imageData={element} />
+          </div>
+        </Link>
+      );
+    })
+
     return (
       <Fragment>
-        {
-          data.map((element) => {
-            const { id, primaryimageurl } = element;
-
-            if (!primaryimageurl) {
-              element.primaryimageurl = noImage;
-            }
-
-            return (
-              <Link to={`/collections/${id}`}>
-                <div className="collections-photo__unit">
-                  <ImageCard imageData={element} />
-                </div>
-              </Link>
-            );
-          })
-        }
+        {mappedImages}
       </Fragment>
     );
   }
 
-  renderRetrievedData = (loading, error, records, fetchMore) => {
+  public renderRetrievedData = (
+    loading: boolean, error: any, records: CollectionImages[], fetchMore: any,
+  ) => {
     if (loading) {
       return <SkeletonScreen />;
     }
@@ -177,12 +204,12 @@ class Collections extends Component {
     if (!loading && records.length) {
       return (
         <Fragment>
-          <section className="collections-photo">
+          <section className='collections-photo'>
             {this.renderImages(records)}
           </section>
           <span
-            role="button"
-            className="collections-loader"
+            role='button'
+            className='collections-loader'
             onClick={this.handleFetchMore(fetchMore)}
             tabIndex={0}
           >
@@ -193,35 +220,38 @@ class Collections extends Component {
     }
   }
 
-  renderLoadMoreOrSpinner = () => {
+  public renderLoadMoreOrSpinner = () => {
     const { loadingIndicator } = this.state;
 
     if (!loadingIndicator) {
       return this.loadMoreButton();
     }
 
-    return <Spinner />
+    return <Spinner />;
   }
 
-  render() {
+  public incrementPage = () => {
+    page += 1;
+  }
+
+  public render() {
     return (
       <Query
         query={objectsQuery}
         variables={{ size: 24, page: 1 }}
-        onCompleted={() => {
-          page += 1;
-        }}
+        onCompleted={this.incrementPage}
       >
         {({
-          fetchMore, loading, error, data: { objects: { records } = {} } = {}
+          fetchMore, loading, error, data: { objects: { records } = {} as any } = {},
         }) => {
           return (
             <Fragment>
-              <div className="collections">
-                <h1 className="collections-header">Collections</h1>
+              <div className='collections'>
+                <h1 className='collections-header'>Collections</h1>
                 {this.renderRetrievedData(loading, error, records, fetchMore)}
                 {!loading && this.noResulFoundError()}
               </div>
+
               <BackToTop />
             </Fragment>
           );
@@ -230,9 +260,5 @@ class Collections extends Component {
     );
   }
 }
-
-Collections.propTypes = {
-  client: PropTypes.object.isRequired,
-};
 
 export default withApollo(Collections);

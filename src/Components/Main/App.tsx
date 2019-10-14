@@ -1,45 +1,46 @@
 import React, { Component } from 'react';
+
 import TopHeader from './TopHeader';
 import {
   artBowl, putto, carved, manotation,
   lovejoy, colors, technic, gallery,
 } from '../../assets';
 import {
-  navBarElement, customNavElement, horizontalScrollDistance,
+  NAV_BAR_ELEMENT, CUSTOM_NAV_ELEMENT, HORIZONTAL_SCROLL_DISTANCE, SCROLL,
 } from '../../settings';
 
-let imageToggleCount = 1;
+let IMAGE_TOGGLE_COUNT = 1;
 
 class App extends Component {
   public componentDidMount() {
-    window.addEventListener('scroll', this.toggleNav);
+    window.addEventListener(SCROLL, this.toggleNav);
   }
 
   public componentWillUnmount() {
-    const navBar = document.getElementById(navBarElement);
+    const navBar = document.getElementById(NAV_BAR_ELEMENT);
 
-    window.removeEventListener('scroll', this.toggleNav);
+    window.removeEventListener(SCROLL, this.toggleNav);
 
     if (navBar) {
-      navBar.classList.remove(customNavElement);
+      navBar.classList.remove(CUSTOM_NAV_ELEMENT);
     }
   }
 
   public toggleNav = () => {
     const { scrollY } = window;
-    const navBar = document.getElementById(navBarElement);
-    if (scrollY > horizontalScrollDistance) {
-      return navBar && navBar.classList.remove(customNavElement);
+    const navBar = document.getElementById(NAV_BAR_ELEMENT);
+    if (scrollY > HORIZONTAL_SCROLL_DISTANCE) {
+      return navBar && navBar.classList.remove(CUSTOM_NAV_ELEMENT);
     }
-  
-    return navBar && navBar.classList.add(customNavElement);
+
+    return navBar && navBar.classList.add(CUSTOM_NAV_ELEMENT);
   }
 
   public toggleImageStack = (element: string) => () => {
-    imageToggleCount += 1;
+    IMAGE_TOGGLE_COUNT += 1;
     const htmlData = document.getElementById(element);
     if (htmlData) {
-      htmlData.style.zIndex = `${imageToggleCount}`;
+      htmlData.style.zIndex = `${IMAGE_TOGGLE_COUNT}`;
     }
   }
 

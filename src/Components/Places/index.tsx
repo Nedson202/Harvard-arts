@@ -2,33 +2,25 @@ import React, { Component, Fragment } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Query } from 'react-apollo';
 import { Input, Icon, Button } from 'antd';
+
 import Pointer from './Pointer';
+import Spinner from '../Preloader/Spinner';
+
 import { placesQuery, placesIdQuery } from './query';
 import './places.scss';
 import { client } from '../../index';
-import { defaultPlaceProps, networkOnly, placesTypename, activePlaceElement,
-  cacheFirst, GOOGLE_MAPS_KEY} from '../../settings';
-import Spinner from '../Preloader/Spinner';
+import {
+  DEFAULT_PLACE_PROPS, NETWORK_ONLY, PLACES_TYPENAME, ACTIVE_PLACE_ELEMENT,
+  CACHE_FIRST, GOOGLE_MAPS_KEY
+} from '../../settings';
 
-interface IProps {
-  center: {
-    lat: number;
-    lng: number;
-  };
-  zoom: number;
-  coordinates: any[];
-}
-
-interface PlaceIDObject {
-  parentPlaceID: number;
-  pathForward: string;
-}
+import { IPlacesProps, IPlaceIDObject } from '../../../types';
 
 const size = 25;
 let from = 0;
 
-class MapContainer extends Component<IProps> {
-  public static defaultProps = defaultPlaceProps;
+class MapContainer extends Component<IPlacesProps> {
+  public static defaultProps = DEFAULT_PLACE_PROPS;
 
   public state = {
     defaultCenter: {},
@@ -63,7 +55,7 @@ class MapContainer extends Component<IProps> {
         return coordinate;
       }
     });
-    return {...filteredPositons[0]};
+    return { ...filteredPositons[0] };
   }
 
   public getLocationData = (parentPlaceID: number) => () => {
@@ -72,7 +64,7 @@ class MapContainer extends Component<IProps> {
       variables: {
         placeId: parentPlaceID,
       },
-      fetchPolicy: networkOnly,
+      fetchPolicy: NETWORK_ONLY,
     }).then((resp: any) => {
       const { data: { placesData: { places = [] } = {} } = {} } = resp;
       client.writeQuery({
@@ -80,7 +72,7 @@ class MapContainer extends Component<IProps> {
         data: {
           placesData: {
             places,
-            __typename: placesTypename,
+            __typename: PLACES_TYPENAME,
           },
         },
         variables: {
@@ -89,22 +81,27 @@ class MapContainer extends Component<IProps> {
       });
     });
 
-    const currentlyActive = document.querySelector(`.${activePlaceElement}`);
-    if (currentlyActive) {
-      currentlyActive.classList.remove(activePlaceElement);
-    }
+    const currentlyActive = document.querySelector(`.${ACTIVE_PLACE_ELEMENT}`);
     const htmlPlaceElement = document.querySelector(`p[data-place="${parentPlaceID}"]`);
+
+    if (currentlyActive) {
+      currentlyActive.classList.remove(ACTIVE_PLACE_ELEMENT);
+    }
+
     if (htmlPlaceElement) {
-      htmlPlaceElement.classList.add(activePlaceElement);
+      htmlPlaceElement.classList.add(ACTIVE_PLACE_ELEMENT);
     }
   }
 
   public renderPlaceIds = (places: any) => {
     if (!places.length) {
-      return (<h3>No match was found</h3>);
+      return (
+        <h3>No match was found</h3>
+      );
     }
+
     return (
-      places.map((place: PlaceIDObject) => {
+      places.map((place: IPlaceIDObject) => {
         const { parentPlaceID, pathForward } = place;
         return (
           <p
@@ -140,6 +137,7 @@ class MapContainer extends Component<IProps> {
         return true;
       }
     });
+
     this.setState({
       placesSearchData: filteredData,
       placeSearchActive: true,
@@ -191,12 +189,14 @@ class MapContainer extends Component<IProps> {
         this.setState({
           loadingIndicator: false,
         });
-        return {...prev,
+        return {
+          ...prev,
           placesIdData: {
             places: [...prev.placesIdData.places,
-              ...places],
-            __typename: placesTypename,
-          }};
+            ...places],
+            __typename: PLACES_TYPENAME,
+          }
+        };
       },
     });
   }
@@ -220,16 +220,15 @@ class MapContainer extends Component<IProps> {
           >
             <Icon type='close' />
           </span>
+
           <Query
             query={placesIdQuery}
-            // tslint:disable-next-line:jsx-no-multiline-js
             variables={{
               from: 0,
               size,
             }}
           >
             {({
-            // tslint:disable-next-line:jsx-no-multiline-js
               loading, error, fetchMore,
               data: { placesIdData: { places = [] } = {} } = {},
             }) => {
@@ -261,23 +260,22 @@ class MapContainer extends Component<IProps> {
                   <div
                     className='places-load-more'
                   >
-                  {this.renderLoadMoreButton(fetchMore)}
+                    {this.renderLoadMoreButton(fetchMore)}
                   </div>
                 </Fragment>
               );
             }}
           </Query>
         </div>
+
         <Query
           query={placesQuery}
-          // tslint:disable-next-line:jsx-no-multiline-js
           variables={{
             placeId: '',
           }}
-          fetchPolicy={cacheFirst}
+          fetchPolicy={CACHE_FIRST}
         >
           {({
-          // tslint:disable-next-line:jsx-no-multiline-js
             loading, error,
             data: { placesData: { places = [] } = {} } = {},
           }) => {
@@ -294,7 +292,7 @@ class MapContainer extends Component<IProps> {
                     <GoogleMapReact
                       bootstrapURLKeys={{ key: GOOGLE_MAPS_KEY }}
                       defaultZoom={this.props.zoom}
-                      center={{...defaultCenter.geo}}
+                      center={{ ...defaultCenter.geo }}
                     >
                       {this.renderChildComponent(places)}
                     </GoogleMapReact>
@@ -306,6 +304,7 @@ class MapContainer extends Component<IProps> {
             if (error) {
               loadedData = (<h1>Sorry an error occurred</h1>);
             }
+
             return (
               <Fragment>
                 {loadedData}

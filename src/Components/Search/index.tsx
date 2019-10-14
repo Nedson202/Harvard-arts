@@ -11,51 +11,13 @@ import searchQuery from './query';
 import { objectsQuery } from '../Collections/query';
 import { runNetworkQuery } from '../../utils';
 import {
-  searchPath, previousLocation, collectionsPath, clipBoardDataType,
-  collectionsTypename,
+  SEARCH_PATH, PREVIOUS_LOCATION, COLLECTIONS_PATH, CLIP_BOARD_DATA_TYPE,
+  COLLECTIONS_TYPENAME,
 } from '../../settings';
 
-interface IProps {
-  client: {
-    query: ({}) => {};
-    writeQuery: ({}) => {};
-  };
-  history: {
-    push: ({}) => {},
-    location: {
-      pathname: string,
-    },
-  };
-}
+import { ISearchProps, ISearchState, EventObject } from '../../../types';
 
-interface ResponseObject {
-  data: {
-    searchResults: {
-      results: object[],
-    };
-  };
-}
-
-interface EventObject {
-  which: number;
-  target: {
-    name: any,
-    value: any,
-  };
-  clipboardData: {
-    getData(): any,
-  };
-  preventDefault(): any;
-}
-
-interface IState {
-  value: string;
-  toggleCloseIcon: boolean;
-  runningSearch: boolean;
-  [key: string]: any;
-}
-
-class Search extends Component<IProps, IState> {
+class Search extends Component<ISearchProps, ISearchState> {
   public state = {
     value: '',
     toggleCloseIcon: false,
@@ -64,11 +26,12 @@ class Search extends Component<IProps, IState> {
 
   public debounceSearch = debounce((value: string) => {
     const { client } = this.props;
+
     if (value.trim().length > 1) {
       this.setState({ runningSearch: true });
 
       runNetworkQuery(client, searchQuery, value)
-      .then((response: any) => {
+        .then((response: any) => {
           const { searchResults } = response.data;
           this.writeQueryToCache(searchResults.results);
           this.setState({ runningSearch: false });
@@ -82,7 +45,8 @@ class Search extends Component<IProps, IState> {
 
   public setInputFromQuery() {
     const query = queryString.parse(window.location.search);
-    if (Object.keys(query)[0] && Object.keys(query)[0] === searchPath) {
+
+    if (Object.keys(query)[0] && Object.keys(query)[0] === SEARCH_PATH) {
       const queryValue: any = Object.values(query)[0];
       this.setState({
         value: queryValue || '',
@@ -95,14 +59,15 @@ class Search extends Component<IProps, IState> {
     }
   }
 
-  public onInputChange = (event: any) => {
+  public onInputChange = (event: EventObject) => {
     event.preventDefault();
     const { name, value } = event.target;
     const { history } = this.props;
+
     if (value.trim().length === 1) {
       history.push({
         ...history.location,
-        pathname: collectionsPath,
+        pathname: COLLECTIONS_PATH,
       });
     }
 
@@ -119,7 +84,9 @@ class Search extends Component<IProps, IState> {
       this.debounceSearch(searchQueryData);
     });
 
-    if (value.trim().length === 0) { return this.clearSearchQuery(); }
+    if (value.trim().length === 0) {
+      return this.clearSearchQuery();
+    }
   }
 
   public clearSearchQuery = () => {
@@ -128,40 +95,44 @@ class Search extends Component<IProps, IState> {
     this.setState({ value: '', toggleCloseIcon: false });
     setQuery({ search: '' });
 
-    history.push(localStorage.previousLocation);
-    localStorage.removeItem(previousLocation);
+    history.push(localStorage.PREVIOUS_LOCATION);
+    localStorage.removeItem(PREVIOUS_LOCATION);
 
     runNetworkQuery(client, objectsQuery, '');
+
     this.setState({ runningSearch: false });
   }
 
   public handleInputFocus = () => {
     const { history: { location } } = this.props;
-    if (location.pathname !== collectionsPath) {
-      localStorage.setItem(previousLocation, location.pathname);
+
+    if (location.pathname !== COLLECTIONS_PATH) {
+      localStorage.setItem(PREVIOUS_LOCATION, location.pathname);
     }
   }
 
   public handleReset = () => {
     const { history } = this.props;
     const { value } = this.state;
+
     if (!value.trim()) {
       setQuery({ search: null });
 
-      history.push(localStorage.previousLocation);
+      history.push(localStorage.PREVIOUS_LOCATION);
 
-      return localStorage.removeItem(previousLocation);
+      return localStorage.removeItem(PREVIOUS_LOCATION);
     }
   }
 
   public handleDataPaste = (event: any) => {
     const { clipboardData } = event;
     const { history } = this.props;
-    const query: any = clipboardData.getData(clipBoardDataType);
+    const query: any = clipboardData.getData(CLIP_BOARD_DATA_TYPE);
+
     if (query.trim().length) {
       history.push({
         ...history.location,
-        pathname: collectionsPath,
+        pathname: COLLECTIONS_PATH,
       });
 
       return this.debounceSearch(query);
@@ -170,12 +141,13 @@ class Search extends Component<IProps, IState> {
 
   public writeQueryToCache(results: object[]) {
     const { client } = this.props;
+
     client.writeQuery({
       query: objectsQuery,
       data: {
         objects: {
           records: results,
-          __typename: collectionsTypename,
+          __typename: COLLECTIONS_TYPENAME,
         },
       },
       variables: { size: 24, page: 1 },
@@ -188,40 +160,62 @@ class Search extends Component<IProps, IState> {
     }
   }
 
+  public renderCloseIcon() {
+    const { toggleCloseIcon } = this.state;
+
+    if (!toggleCloseIcon) {
+      return;
+    }
+
+    return (
+      <button
+        className='close-icon'
+        onClick={this.clearSearchQuery}
+        type='button'
+      >
+        &times;
+      </button>
+    );
+  }
+
+  public renderSearchActiveSpinner() {
+    const { runningSearch } = this.state;
+
+    if (!runningSearch) {
+      return;
+    }
+
+    return (
+      <Spinner
+        disableTip={true}
+        size={25}
+      />
+    );
+  }
+
   public render() {
-    const { value, toggleCloseIcon, runningSearch } = this.state;
+    const { value } = this.state;
+
     return (
       <form
         onKeyPress={this.disableSearchOnEnter}
       >
         <input
-          className='search'
-          type='search'
-          placeholder='Search by title, century, culture, department, culture...'
           aria-label='Search'
-          name='value'
+          autoComplete='off'
+          className='search'
           id='searchBox'
+          name='value'
+          onBlur={this.handleReset}
           onChange={this.onInputChange}
           onFocus={this.handleInputFocus}
-          onBlur={this.handleReset}
-          autoComplete='off'
           onPaste={this.handleDataPaste}
+          placeholder='Search by title, century, culture, department, culture...'
+          type='search'
           value={value}
         />
-        {toggleCloseIcon && (
-          <button
-            type='button'
-            onClick={this.clearSearchQuery}
-            className='close-icon'
-          >
-            &times;
-          </button>
-        )}
-        {
-          runningSearch && (
-            <Spinner disableTip={true} size={25} />
-          )
-        }
+        {this.renderCloseIcon()}
+        {this.renderSearchActiveSpinner()}
       </form>
     );
   }
