@@ -19,7 +19,8 @@ AOS.init({
   duration: 2000,
 });
 
-const restLink = new RestLink({ uri: 'http://localhost:4000/harvard-arts/' });
+const serverURL: string = process.env.REACT_APP_SERVER_URL || '';
+const restLink = new RestLink({ uri: serverURL });
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -39,8 +40,8 @@ const renderDOM = () => {
 
 renderDOM();
 
-if (module.hot) {
-  module.hot.accept('./routes', () => {
+if (process.env.REACT_APP_ENVIRONMENT === 'development') {
+  (module as any).hot.accept('./routes', () => {
     renderDOM();
   });
 }

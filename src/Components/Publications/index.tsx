@@ -18,7 +18,7 @@ import {
   PublicationsFetchMoreResult,
 } from '../../../types';
 
-let page: number;
+let page: number = 1;
 
 class Publications extends Component {
   public state = {
@@ -114,8 +114,7 @@ class Publications extends Component {
                 {this.getPeopleInitials(name)}
               </div>
             </Tooltip>
-          ))
-        }
+          ))}
       </Fragment>
     );
   }

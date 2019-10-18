@@ -29,6 +29,7 @@ class App extends Component {
   public toggleNav = () => {
     const { scrollY } = window;
     const navBar = document.getElementById(NAV_BAR_ELEMENT);
+
     if (scrollY > HORIZONTAL_SCROLL_DISTANCE) {
       return navBar && navBar.classList.remove(CUSTOM_NAV_ELEMENT);
     }

@@ -114,11 +114,10 @@
         &-body {
           border-bottom: 1px solid rgb(235, 230, 230);
         }
-  
+
         &-people {
           display: flex;
           flex-wrap: wrap;
-          // margin: 0 50px;
           justify-content: space-between;
 
           div {
@@ -129,10 +128,9 @@
             box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 3px 3px rgba(0,0,0,0.13);
             margin-bottom: 15px;
             cursor: pointer;
-            border: 1px solid #005C97;
           }
         }
-  
+
         &-more {
           border-top: 1px solid rgb(235, 230, 230);
         }

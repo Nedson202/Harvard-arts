@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { Icon } from 'antd';
 
 import './backToTop.scss';
-import { MINIMUM_SCROLL_DISTANCE, SCROLL } from '../../settings';
+import { SCROLL } from '../../settings';
 
 import { IBackToTopState } from '../../../types';
 
@@ -35,23 +35,13 @@ class BackToTop extends PureComponent<any, IBackToTopState> {
     });
   }
 
-  private handlePageScroll = () => {
-    let displayBackToTop = false;
+  public handlePageScroll = () => {
+    const shouldDisplayBackToTop = window.scrollY > 300;
 
-    if (document.body.scrollTop > MINIMUM_SCROLL_DISTANCE
-      || document.documentElement.scrollTop > MINIMUM_SCROLL_DISTANCE) {
-      displayBackToTop = true;
-    }
-
-    if (document.body.scrollTop < MINIMUM_SCROLL_DISTANCE
-      || document.documentElement.scrollTop < MINIMUM_SCROLL_DISTANCE) {
-      displayBackToTop = false;
-    }
-
-    this.setState({ displayBackToTop });
+    this.setState({ displayBackToTop: shouldDisplayBackToTop });
   }
 
-  private scrollToTop = () => {
+  public scrollToTop = () => {
     window.scroll({
       top: 0,
       left: 100,
@@ -59,11 +49,11 @@ class BackToTop extends PureComponent<any, IBackToTopState> {
     });
   }
 
-  private renderBackToTop = (displayBackToTop: boolean) => displayBackToTop && (
+  public renderBackToTop = (displayBackToTop: boolean) => displayBackToTop && (
     <button
-      type='button'
       className='btn btn-secondary bmd-btn-fab back-to-top'
       onClick={this.scrollToTop}
+      type='button'
     >
       <Icon type='caret-up' />
     </button>

@@ -7,6 +7,7 @@ import Collection from '../Components/Collection';
 import NavBar from '../Components/Navbar';
 import Publications from '../Components/Publications';
 import Places from '../Components/Places';
+import NotFound from '../Components/NotFound';
 
 const Routes = () => (
   <Fragment>
@@ -17,6 +18,7 @@ const Routes = () => (
       <Route path='/collections/:id' component={Collection} exact={true} />
       <Route path='/publications' component={Publications} exact={true} />
       <Route path='/places' component={Places} exact={true} />
+      <Route component={NotFound} />
     </Switch>
   </Fragment>
 );

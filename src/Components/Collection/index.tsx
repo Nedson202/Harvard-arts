@@ -106,6 +106,8 @@ class Collection extends Component<CollectionProps> {
     return finalData;
   }
 
+  public returnVoid = () => 0;
+
   public toggleFullImageView = (value: CollectionGroupValue) => {
     const { fullImageVisible } = this.state;
     const navElement = document.getElementById(NAV_BAR_ELEMENT);
@@ -120,19 +122,19 @@ class Collection extends Component<CollectionProps> {
     return (
       <div className='fullImage-display' ref={(node) => this.node = node}>
         <span
-          tabIndex={0}
-          role='button'
           className='image-close-icon'
           onClick={this.cancelImageDisplay}
+          role='button'
+          tabIndex={0}
         >
           <Icon type='close' />
         </span>
         <img
+          alt='collection pix-file on display'
+          id='fullImage'
+          onFocus={this.returnVoid}
           onMouseOver={this.handleFullImageDisplay}
           src={value.primaryimageurl}
-          alt='collection pix-file on display'
-          onFocus={() => 0}
-          id='fullImage'
         />
       </div>
     );
@@ -159,12 +161,12 @@ class Collection extends Component<CollectionProps> {
               <Fragment>
                 <h1 className='collection-header center'>
                   <img
-                    onClick={this.handleFullImageDisplay}
-                    src={value.primaryimageurl}
+                    alt=''
                     className='preview-image'
                     height='100px'
+                    onClick={this.handleFullImageDisplay}
+                    src={value.primaryimageurl}
                     width='100px'
-                    alt=''
                   />
                   {value.title}
                 </h1>
@@ -203,7 +205,6 @@ class Collection extends Component<CollectionProps> {
                     <span className='collection-data__para'>
                       {value.contextualtext
                         ? this.contextualText(value.contextualtext) : <p>{NOT_AVAILABLE_MESSAGE}</p>}
-
                     </span>
 
                     <div className='collection-data__group'>
