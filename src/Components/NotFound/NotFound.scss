@@ -1,0 +1,32 @@
+.container-content {
+  padding: 120px 100px 30px 100px;
+
+  .not-found {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+    &__404 {
+      font-size: 200px;
+      transform: rotate(-5deg);
+      margin-bottom: 16px;
+    }
+  }
+
+  @media screen and (max-width: 560px) {
+    .container-content {
+      padding: unset;
+
+      .not-found {
+        &__404 {
+          font-size: 160px;
+        }
+      }
+    }
+  }
+}

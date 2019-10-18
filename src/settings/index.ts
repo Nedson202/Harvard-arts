@@ -75,3 +75,8 @@ export const GOOGLE_MAPS_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY || '';
 
 export const SCROLL = 'scroll';
 export const MOUSE_DOWN = 'mousedown';
+export const SCROLL_PARAM = {
+  top: 0,
+  left: 100,
+  behavior: 'smooth',
+};

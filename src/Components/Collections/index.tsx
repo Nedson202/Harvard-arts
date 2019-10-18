@@ -62,13 +62,13 @@ class Collections extends Component<ICollectionsProps> {
       updateQuery: (prev: any, { fetchMoreResult }: CollectionsFetchMore) => {
         const {
           objects: { records },
-          searchResults: { results = [] },
+          searchResults,
         } = fetchMoreResult as CollectionsFetchMoreResult;
 
         newData = records;
 
-        if (results.length !== 0) {
-          newData = results;
+        if (searchResults && searchResults.results.length) {
+          newData = searchResults.results;
         }
 
         if (activeSearchData) {
@@ -154,7 +154,6 @@ class Collections extends Component<ICollectionsProps> {
             <li>
               Fields you can query are title, century, accessionmethod, period, technique,
               classification, department, culture, medium, verificationleveldescription
-
             </li>
           </ul>
         </div>
@@ -177,7 +176,7 @@ class Collections extends Component<ICollectionsProps> {
           </div>
         </Link>
       );
-    })
+    });
 
     return (
       <Fragment>

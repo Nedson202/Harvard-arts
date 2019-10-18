@@ -1,6 +1,6 @@
 .collections {
-  padding: 120px 0 40px 100px;
-  
+  padding: 120px 100px 30px 100px;
+
   &-empty {
     font-size: 18px;
     position: absolute;
@@ -44,7 +44,6 @@
     -moz-column-gap:      50px;
     column-count:         4;
     column-gap:           50px;
-    margin: 0 100px 50px 100px;
 
     img {
       /* Just in case there are inline attributes */
@@ -77,7 +76,7 @@
   &-loader {
     display: flex;
     justify-content: center;
-    margin: auto auto 20px auto;
+    margin: 40px auto 20px auto;
     width: 100%;
     max-width: 150px;
 
@@ -133,6 +132,8 @@
 
 @media (max-width: 560px) {
   .collections {
+    padding: unset;
+
     &-header {
       padding-top: 100px;
       padding-left: 20px;

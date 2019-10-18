@@ -11,7 +11,7 @@ import './places.scss';
 import { client } from '../../index';
 import {
   DEFAULT_PLACE_PROPS, NETWORK_ONLY, PLACES_TYPENAME, ACTIVE_PLACE_ELEMENT,
-  CACHE_FIRST, GOOGLE_MAPS_KEY
+  CACHE_FIRST, GOOGLE_MAPS_KEY,
 } from '../../settings';
 
 import { IPlacesProps, IPlaceIDObject } from '../../../types';
@@ -52,9 +52,11 @@ class MapContainer extends Component<IPlacesProps> {
     const filteredPositons = places.filter((coordinate: any) => {
       if (coordinate.geo) {
         coordinate.geo.lng = coordinate.geo.lon;
+
         return coordinate;
       }
     });
+
     return { ...filteredPositons[0] };
   }
 
