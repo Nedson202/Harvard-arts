@@ -248,7 +248,6 @@ class Collection extends Component<CollectionProps> {
               <div className='collection'>
                 {loadedData}
               </div>
-
               <BackToTop />
             </Fragment>
           );

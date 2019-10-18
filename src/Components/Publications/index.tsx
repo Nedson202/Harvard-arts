@@ -54,11 +54,6 @@ class Publications extends Component {
   public handleInfiniteScroll = (fetchMore: (arg0: FetchMore) => void, year: number) => () => {
     this.setState({ loadingIndicator: true });
 
-    console.log({
-      size: 24,
-      page,
-      year,
-    })
     fetchMore({
       query: publicationQuery,
       variables: {
