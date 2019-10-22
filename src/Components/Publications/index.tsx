@@ -130,7 +130,7 @@ class Publications extends Component {
             >
               <p className='publications-grid__item-header'>
                 <strong>
-                  {publication.title}
+                  {publication.title.replace(/"/g, '')}
                 </strong>
               </p>
               <div className='publications-grid__item-body'>
@@ -164,7 +164,7 @@ class Publications extends Component {
                 </p>
               </div>
               <div>
-                <p><strong>People & Bodies</strong></p>
+                <p><strong>People &amp; Bodies</strong></p>
                 <div className='publications-grid__item-people'>
                   {this.renderPeopleInitials(publication.people || [])}
                 </div>

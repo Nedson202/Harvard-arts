@@ -6,7 +6,6 @@ import requestLogger from 'morgan';
 import cors from 'cors';
 import { routes } from './routes';
 import { createLogger, stackLogger } from 'info-logger';
-import db from './database';
 
 export const logger = createLogger('Error', 'log-result');
 
@@ -42,7 +41,6 @@ app.get('*', (_, res) => {
 app.listen(process.env.PORT || port, () => {
   logger.info(`Server started on port: ${process.env.PORT || port}`);
   logger.info(`App: ${appUrl}`);
-  db.createTables();
 });
 
 const httpProtocol = process.env.NODE_ENV.match('development') ? http : https;

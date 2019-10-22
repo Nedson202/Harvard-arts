@@ -1,9 +1,13 @@
 import https from 'https';
 import { Request, Response, NextFunction } from 'express';
+
 import { addDataToRedis, getDataFromRedis } from '../redis';
 import { addDocument, elasticBulkCreate, elasticItemSearch } from '../elasticSearch';
 import { stackLogger } from 'info-logger';
-import { placesData, healthCheckMessage, baseUrl, defaultEncoding, HARVARD_API_KEY } from '../utils';
+import {
+  placesData, healthCheckMessage, baseUrl, defaultEncoding,
+  HARVARD_API_KEY,
+} from '../utils';
 
 class ArtsController {
   public static async healthChecker(_: any, res: Response) {

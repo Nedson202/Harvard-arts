@@ -51,7 +51,7 @@ class BackToTop extends PureComponent<any, IBackToTopState> {
 
   public renderBackToTop = (displayBackToTop: boolean) => displayBackToTop && (
     <button
-      className='btn btn-secondary bmd-btn-fab back-to-top'
+      className='btn btn-secondary back-to-top'
       onClick={this.scrollToTop}
       type='button'
     >

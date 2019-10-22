@@ -159,17 +159,19 @@ class Collection extends Component<CollectionProps> {
 
             loadedData = (
               <Fragment>
-                <h1 className='collection-header center'>
+                <div className='collection-header'>
                   <img
                     alt=''
-                    className='preview-image'
+                    className='collection-header__image'
                     height='100px'
                     onClick={this.handleFullImageDisplay}
                     src={value.primaryimageurl}
                     width='100px'
                   />
-                  {value.title}
-                </h1>
+                  <h1 className='collection-header__title center'>
+                    {value.title}
+                  </h1>
+                </div>
 
                 {this.toggleFullImageView(value)}
 

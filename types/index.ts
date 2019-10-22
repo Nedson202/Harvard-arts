@@ -174,3 +174,11 @@ export interface PublicationsFetchMoreResult {
     publications: object[];
   };
 }
+
+export interface INavbarState {
+  isSideNavOpen: boolean;
+}
+
+export interface IPointerProps {
+  text: string;
+}
