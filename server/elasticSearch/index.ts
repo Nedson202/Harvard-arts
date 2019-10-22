@@ -74,10 +74,6 @@ export const createMapping = () => elasticClient.indices.putMapping({
   },
 });
 
-export const getIndexStatus = () => elasticClient.cat.indices({ format: '' })
-  .then(() => logger.info('---Received---'))
-  .catch((err: string) => logger.error(`Error connecting to the es elasticClient: ${err}`));
-
 export const deleteIndex = (index: string) => {
   elasticClient.indices.delete({ index }, (error: string, resp: string, status: string) => {
     if (error) { return stackLogger(error); }
@@ -94,39 +90,6 @@ export const addDocument = (index: any, type: string) => {
   }, (error: string, resp: string) => {
     if (error) { return stackLogger(error); }
     logger.info('---Object added successfully---', resp);
-  });
-};
-
-export const retrieveDocument = async (id: string) => {
-  const book = await elasticClient.get({
-    index: 'arts',
-    type: 'art',
-    id,
-    // body
-  }).then((result: any) => result._source) // eslint-disable-line
-    .catch((error) => {
-      stackLogger(error);
-    });
-
-  return book;
-};
-
-export const getSuggestions = (input: any) => {
-  elasticClient.search({
-    index: 'arts',
-    type: 'art',
-    body: {
-      docsuggest: {
-        text: input,
-        completion: {
-          field: 'suggest',
-          fuzzy: true,
-        },
-      },
-    },
-  }, (error, resp) => {
-    if (error) { return stackLogger(error); }
-    logger.info(resp);
   });
 };
 

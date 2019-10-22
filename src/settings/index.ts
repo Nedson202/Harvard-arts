@@ -46,7 +46,7 @@ export const DEFAULT_PLACE_PROPS = {
       text: 'arang',
     },
   ],
-  zoom: 7,
+  zoom: 0,
 };
 export const NETWORK_ONLY = 'network-only';
 export const CACHE_FIRST = 'cache-first';
@@ -74,4 +74,23 @@ export const FORM_ELEMENT = 'form';
 export const GOOGLE_MAPS_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY || '';
 
 export const SCROLL = 'scroll';
+export const CLICK = 'click';
 export const MOUSE_DOWN = 'mousedown';
+
+export const LEFT_SIDEBAR_NAV_LINKS = [
+  {
+    key: 'nav-collections',
+    label: 'Collections',
+    link: '/collections',
+  },
+  {
+    key: 'nav-publications',
+    label: 'Publications',
+    link: '/publications',
+  },
+  {
+    key: 'nav-places',
+    label: 'Places',
+    link: '/places',
+  },
+];

@@ -105,6 +105,7 @@ class MapContainer extends Component<IPlacesProps> {
     return (
       places.map((place: IPlaceIDObject) => {
         const { parentPlaceID, pathForward } = place;
+
         return (
           <p
             key={parentPlaceID}
@@ -157,6 +158,7 @@ class MapContainer extends Component<IPlacesProps> {
 
   public renderLoadMoreButton = (fetchMore: any) => {
     const { loadingIndicator } = this.state;
+
     if (!loadingIndicator) {
       return (
         <Button
@@ -167,12 +169,14 @@ class MapContainer extends Component<IPlacesProps> {
         </Button>
       );
     }
+
     return <Spinner />;
   }
 
   public handleFetchMore = (fetchMore: any) => () => {
     this.setState({ loadingIndicator: true });
     from = from + size + 1;
+
     fetchMore({
       query: placesIdQuery,
       variables: {
@@ -191,6 +195,7 @@ class MapContainer extends Component<IPlacesProps> {
         this.setState({
           loadingIndicator: false,
         });
+
         return {
           ...prev,
           placesIdData: {
@@ -206,14 +211,14 @@ class MapContainer extends Component<IPlacesProps> {
   public render() {
     let loadedData: any;
     const { placeSearchQuery } = this.state;
+
     return (
       <Fragment>
-        <div className='sidenav'>
+        <div className='places-sidenav'>
           <Input
             placeholder='input search text'
             onChange={this.handlePlaceIdSearch}
             onFocus={this.retrievePlaces}
-            style={{ width: 230 }}
             value={placeSearchQuery}
           />
           <span
@@ -236,6 +241,7 @@ class MapContainer extends Component<IPlacesProps> {
             }) => {
               const { placesSearchData, placeSearchActive } = this.state;
               let dataToRender = places;
+
               if (placeSearchActive) {
                 dataToRender = placesSearchData;
               }

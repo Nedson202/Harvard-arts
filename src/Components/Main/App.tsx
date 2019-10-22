@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 
 import TopHeader from './TopHeader';
 import {
-  artBowl, putto, carved, manotation,
-  lovejoy, colors, technic, gallery,
+  colors, technic, gallery, allCollections, allPublication,
 } from '../../assets';
 import {
   NAV_BAR_ELEMENT, CUSTOM_NAV_ELEMENT, HORIZONTAL_SCROLL_DISTANCE, SCROLL,
 } from '../../settings';
-
-let IMAGE_TOGGLE_COUNT = 1;
+import BackToTop from '../BackToTop';
 
 class App extends Component {
   public componentDidMount() {
@@ -37,94 +35,63 @@ class App extends Component {
     return navBar && navBar.classList.add(CUSTOM_NAV_ELEMENT);
   }
 
-  public toggleImageStack = (element: string) => () => {
-    IMAGE_TOGGLE_COUNT += 1;
-    const htmlData = document.getElementById(element);
-    if (htmlData) {
-      htmlData.style.zIndex = `${IMAGE_TOGGLE_COUNT}`;
-    }
-  }
-
   public returnVoid = () => 0;
 
   public render() {
     return (
       <div className='app-layout'>
         <TopHeader />
+
         <div className='app-layout__data'>
-          <h1 className='header-tag center'>Collections & Annotations</h1>
-          <div data-aos='fade-right' className='app-layout__data-collection'>
-            <span className='images'>
-              <img
-                id='first-img'
-                src={artBowl}
-                alt='art-bowl'
-                onMouseOver={this.toggleImageStack('first-img')}
-              />
-              <img
-                className='second-img'
-                id='second-img'
-                src={putto}
-                onMouseOver={this.toggleImageStack('second-img')}
-                alt='putto'
-                onFocus={this.returnVoid}
-              />
-              <img
-                className='third-img'
-                id='third-img'
-                src={carved}
-                alt='putto'
-                onMouseOver={this.toggleImageStack('third-img')}
-                onFocus={this.returnVoid}
-              />
-            </span>
-            <div className='description'>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
+          <h1 className='app-layout__data--header center'>Collections &amp; Publications</h1>
+          <div className='app-layout__data-collection-publication'>
+            <div data-aos='fade-right' className='app-layout__data-collection'>
+              <span className='images'>
+                <img
+                  className='second-img'
+                  src={allCollections}
+                  alt='all collections screen'
+                  onFocus={this.returnVoid}
+                />
+              </span>
+              <div className='description'>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              </div>
             </div>
-          </div>
-          <div data-aos='zoom-out-up' className='app-layout__data-annotation'>
-            <div className='images'>
-              <img
-                src={lovejoy}
-                alt='lovejoy'
-                id='lovejoy-img'
-                onMouseOver={this.toggleImageStack('lovejoy-img')}
-                onFocus={this.returnVoid}
-              />
-              <img
-                className='second-img'
-                src={manotation}
-                alt='manotation'
-                id='manotation'
-                onMouseOver={this.toggleImageStack('manotation')}
-                onFocus={this.returnVoid}
-              />
-            </div>
-            <div className='description'>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
+            <div data-aos='zoom-out-up' className='app-layout__data-publication'>
+              <span className='images'>
+                <img
+                  src={allPublication}
+                  alt='all publications screen'
+                  onFocus={this.returnVoid}
+                />
+              </span>
+              <div className='description'>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              </div>
             </div>
           </div>
           <div className='app-layout__data-methods'>
-            <h1 className='header-tag center'>Explore</h1>
+            <h1 className='app-layout__data--header center'>Explore</h1>
             <div className='services center'>
               <div data-aos='zoom-in-down'>
                 <img src={colors} alt='color-display' />
                 <h2>Colors</h2>
                 <p>
-                  You information on the colors used to describe items in the Harvard
+                  You get information on the colors used to describe items in the Harvard
                   Art Museums collections.
                 </p>
               </div>
               <div data-aos='zoom-in-up'>
-                <img src={technic} alt='color-display' />
+                <img src={technic} alt='technique-display' />
                 <h2>Technique</h2>
                 <p>
                   Get information on the techniques used in the production of items in
@@ -132,7 +99,7 @@ class App extends Component {
                 </p>
               </div>
               <div data-aos='zoom-in-down'>
-                <img src={gallery} alt='color-display' />
+                <img src={gallery} alt='gallery-display' />
                 <h2>Gallery</h2>
                 <p>
                   Access to information on physical spaces within the museums’ building at
@@ -147,6 +114,8 @@ class App extends Component {
             </div>
           </div>
         </div>
+
+        <BackToTop />
       </div>
     );
   }

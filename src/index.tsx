@@ -40,7 +40,7 @@ const renderDOM = () => {
 
 renderDOM();
 
-if (process.env.REACT_APP_ENVIRONMENT === 'development') {
+if ((module as any).hot) {
   (module as any).hot.accept('./routes', () => {
     renderDOM();
   });

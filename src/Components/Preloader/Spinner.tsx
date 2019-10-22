@@ -7,12 +7,13 @@ import { ISpinnerProps } from '../../../types';
 const Spinner = (props: ISpinnerProps) => {
   let spinnerTip = 'Loading...';
   const { disableTip, size } = props;
-  const antIcon =
-  <Icon
-    type='loading'
-    style={{ fontSize: size }}
-    spin={true}
-  />;
+  const antIcon = (
+    <Icon
+      type='loading'
+      style={{ fontSize: size }}
+      spin={true}
+    />
+  );
 
   if (disableTip) {
     spinnerTip = '';

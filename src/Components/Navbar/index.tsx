@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Icon } from 'antd';
 
@@ -6,10 +6,18 @@ import Search from '../Search';
 import {
   ROOT_PATH, PLACES_PATH, NAV_BAR_ELEMENT, NO_DISPLAY,
   NAV_BAR_BOX_SHADOW, MINIMUM_SCROLL_DISTANCE, MAXIMUM_SCROLL_DISTANCE,
-  CUSTOM_NAV_ELEMENT, SCROLL,
+  CUSTOM_NAV_ELEMENT, SCROLL, CLICK,
 } from '../../settings';
+import { INavbarState } from '../../../types';
+import SideNav from '../SideNav';
 
-class NavBar extends Component {
+class NavBar extends Component<any, INavbarState> {
+  public state = {
+    isSideNavOpen: false,
+  };
+
+  public node: any;
+
   public componentDidMount() {
     window.addEventListener(SCROLL, this.handlePageScroll, {
       capture: true,
@@ -22,6 +30,32 @@ class NavBar extends Component {
       capture: true,
       passive: true,
     });
+  }
+
+  public toggleMobileNav = () => {
+    const { isSideNavOpen } = this.state;
+
+    if (typeof window.orientation === 'undefined') {
+      return;
+    }
+
+    if (!isSideNavOpen) {
+      document.addEventListener(CLICK, this.handleOutsideClick, false);
+    } else {
+      document.removeEventListener(CLICK, this.handleOutsideClick, false);
+    }
+
+    this.setState((prevState) => ({
+      isSideNavOpen: !prevState.isSideNavOpen,
+    }));
+  }
+
+  public handleOutsideClick = (event: any) => {
+    if (this.node.contains(event.target)) {
+      return;
+    }
+
+    this.toggleMobileNav();
   }
 
   public handlePageScroll = () => {
@@ -48,34 +82,46 @@ class NavBar extends Component {
   }
 
   public render() {
+    const { isSideNavOpen } = this.state;
     const pathName = window.location.pathname;
     const styleName = pathName === ROOT_PATH && CUSTOM_NAV_ELEMENT;
 
     return (
-      <div className={`${'clip-header__nav'} ${styleName}`} id='nav-bar'>
-        <h1 className='clip-header__nav-logo'>
-          <NavLink to='/'>Art Museum</NavLink>
-        </h1>
-        <div>
-          <Search />
+      <Fragment>
+        {isSideNavOpen && <SideNav />}
+
+        <div
+          className={`${'clip-header__nav'} ${styleName}`}
+          id='nav-bar'
+          ref={(node) => { this.node = node; }}
+        >
+          <h1 className='clip-header__nav-logo'>
+            <NavLink to='/'>Art Museum</NavLink>
+          </h1>
+          <div>
+            <Search />
+          </div>
+          <div className='clip-header__menu'>
+            <span>
+              <NavLink to='/collections'>
+                Collections
+              </NavLink>
+            </span>
+            <span>
+              <NavLink to='/publications'>Publications</NavLink>
+            </span>
+            <span>
+              <NavLink to='/places'>Places</NavLink>
+            </span>
+          </div>
+          <div className='clip-header__mobile-menu'>
+            <Icon
+              type='menu-fold'
+              onClick={this.toggleMobileNav}
+            />
+          </div>
         </div>
-        <div className='clip-header__menu'>
-          <span>
-            <NavLink to='/collections'>
-              Collections
-            </NavLink>
-          </span>
-          <span>
-            <NavLink to='/publications'>Publications</NavLink>
-          </span>
-          <span>
-            <NavLink to='/places'>Places</NavLink>
-          </span>
-        </div>
-        <div className='clip-header__mobile-menu'>
-          <Icon type='menu-fold' />
-        </div>
-      </div>
+      </Fragment>
     );
   }
 }

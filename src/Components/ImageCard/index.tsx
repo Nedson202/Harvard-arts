@@ -28,7 +28,7 @@ class ImageCard extends Component<IImageCardProps> {
   public renderImage(image: string, title: any) {
     const { imageLoaded, loadedErrorMessage, imageUrl } = this.state;
 
-    if (!imageLoaded && loadedErrorMessage.length === 0) {
+    if (!imageLoaded && !loadedErrorMessage.length) {
       return (
         <div className='image-loader'>
           <Spinner />
@@ -43,7 +43,7 @@ class ImageCard extends Component<IImageCardProps> {
       );
     }
 
-    if (loadedErrorMessage.length !== 0) {
+    if (loadedErrorMessage.length) {
       return (
         <span className='image-error-placeholder'>
           <h1>{loadedErrorMessage}</h1>
@@ -61,7 +61,7 @@ class ImageCard extends Component<IImageCardProps> {
         />
 
         <div className={title && 'child'}>
-          <p className='center'>{title}</p>
+          <p className='center truncate-overflow'>{title}</p>
         </div>
       </Fragment>
     );

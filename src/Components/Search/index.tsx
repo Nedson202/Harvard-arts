@@ -24,18 +24,15 @@ class Search extends Component<ISearchProps, ISearchState> {
     runningSearch: false,
   };
 
-  public debounceSearch = debounce((value: string) => {
-    const { client } = this.props;
-
+  public debounceSearch = debounce(async (value: string) => {
     if (value.trim().length > 1) {
       this.setState({ runningSearch: true });
 
-      runNetworkQuery(client, searchQuery, value)
-        .then((response: any) => {
-          const { searchResults } = response.data;
-          this.writeQueryToCache(searchResults.results);
-          this.setState({ runningSearch: false });
-        }).catch((error: any) => error);
+      const response: any = await runNetworkQuery(searchQuery, value);
+      const { searchResults } = response.data;
+
+      this.writeQueryToCache(searchResults.results || []);
+      this.setState({ runningSearch: false });
     }
   }, 1000);
 
@@ -73,24 +70,21 @@ class Search extends Component<ISearchProps, ISearchState> {
 
     this.setState({ [name]: value }, () => {
       const { value: searchQueryData } = this.state;
+      const queryData = searchQueryData.trim().length > 0;
 
-      if (searchQueryData.trim().length) {
-        this.setState({ toggleCloseIcon: true });
-      } else {
-        this.setState({ toggleCloseIcon: false });
-      }
+      this.setState({ toggleCloseIcon: queryData });
 
       setQuery({ search: searchQueryData });
       this.debounceSearch(searchQueryData);
     });
 
-    if (value.trim().length === 0) {
+    if (!value.trim().length) {
       return this.clearSearchQuery();
     }
   }
 
   public clearSearchQuery = () => {
-    const { history, client } = this.props;
+    const { history } = this.props;
 
     this.setState({ value: '', toggleCloseIcon: false });
     setQuery({ search: '' });
@@ -98,7 +92,7 @@ class Search extends Component<ISearchProps, ISearchState> {
     history.push(localStorage.PREVIOUS_LOCATION);
     localStorage.removeItem(PREVIOUS_LOCATION);
 
-    runNetworkQuery(client, objectsQuery, '');
+    runNetworkQuery(objectsQuery, '');
 
     this.setState({ runningSearch: false });
   }
@@ -168,13 +162,15 @@ class Search extends Component<ISearchProps, ISearchState> {
     }
 
     return (
-      <button
-        className='close-icon'
-        onClick={this.clearSearchQuery}
-        type='button'
-      >
-        &times;
-      </button>
+      <div>
+        <button
+          className='close-icon'
+          onClick={this.clearSearchQuery}
+          type='button'
+        >
+          &times;
+        </button>
+      </div>
     );
   }
 

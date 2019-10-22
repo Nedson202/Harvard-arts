@@ -1,10 +1,18 @@
 .collection {
   padding: 120px 100px 30px 100px;
 
-  .preview-image {
-    margin-right: 30px;
-    border-radius: 50%;
-    cursor: pointer;
+  &-header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    &__image {
+      display: block;
+      margin: auto;
+      margin-bottom: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
   }
 
   .fullImage-display {
@@ -92,12 +100,6 @@
   .collection {
     padding: 120px 20px 30px 20px;
 
-    .preview-image {
-      margin-right: 30px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
     .fullImage-display {
       position: absolute;
       width: 90%;
@@ -107,37 +109,18 @@
       justify-content: space-between;
 
       .image-close-icon {
-        position: absolute;
-        right: 0;
-        top: -50%;
+        margin-top: -250px;
         font-size: 50px;
         color: #fff;
         margin-left: 20px;
         cursor: pointer;
+        z-index: 100;
       }
     }
 
     &-data {
-      &__head {
-        font-size: 27px;
-        margin-top: 30px;
-        border-left: 3px solid #005C97;
-        padding: 10px;
-      }
-
       &__group {
-        display: flex;
-        margin-top: 50px;
         flex-direction: column;
-
-        div {
-          border: 1px solid #ecebeb;
-          box-sizing: border-box;
-          margin-bottom: 10px;
-          padding: 25px 0;
-          border-radius: 10px;
-          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.16), 0 2px 5px rgba(0, 0, 0, 0.01);
-        }
 
         &-layer1 {
           width: 100%;
@@ -145,10 +128,6 @@
 
         &-layer2 {
           width: 100%;
-
-          p {
-            padding: 0 30px;
-          }
         }
       }
     }

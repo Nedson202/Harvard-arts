@@ -8,10 +8,14 @@ const TopHeader = () => {
       <div className='clip-header__bg' />
       <div className='clip-header__intro' data-aos='zoom-in-right'>
         <h1>The Art Museum</h1>
-        <p>Built on Harvard&apos;s Art Museum robust API</p>
+        <p>Built on Harvard&apos;s Art Museum robust API.</p>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          Here to offer you a different look and feel of art collections and publications
+          from the Harvard Art Museum archives.
+          <br />
+          <br />
+          The Places page also leverages the places API related to collections in the Art
+          Archives to deliver you a graphical view of these data using the Google Maps API.
         </p>
       </div>
     </header>
