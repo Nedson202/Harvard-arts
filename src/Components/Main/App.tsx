@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
 import TopHeader from './TopHeader';
+
 import {
-  colors, technic, gallery, allCollections, allPublication,
+  allCollections, allPublication, colors, gallery, technic,
 } from '../../assets';
+
 import {
-  NAV_BAR_ELEMENT, CUSTOM_NAV_ELEMENT, HORIZONTAL_SCROLL_DISTANCE, SCROLL,
+  CUSTOM_NAV_ELEMENT, HORIZONTAL_SCROLL_DISTANCE, NAV_BAR_ELEMENT, SCROLL,
 } from '../../settings';
 import BackToTop from '../BackToTop';
 

@@ -1,15 +1,17 @@
 import React, { Component, Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
+
 import { Icon } from 'antd';
 
 import Search from '../Search';
-import {
-  ROOT_PATH, PLACES_PATH, NAV_BAR_ELEMENT, NO_DISPLAY,
-  NAV_BAR_BOX_SHADOW, MINIMUM_SCROLL_DISTANCE, MAXIMUM_SCROLL_DISTANCE,
-  CUSTOM_NAV_ELEMENT, SCROLL, CLICK,
-} from '../../settings';
-import { INavbarState } from '../../../types';
 import SideNav from '../SideNav';
+
+import { INavbarState } from '../../../types';
+import {
+  CLICK, CUSTOM_NAV_ELEMENT, MAXIMUM_SCROLL_DISTANCE, MINIMUM_SCROLL_DISTANCE,
+  NAV_BAR_BOX_SHADOW, NAV_BAR_ELEMENT, NO_DISPLAY,
+  PLACES_PATH, ROOT_PATH, SCROLL,
+} from '../../settings';
 
 class NavBar extends Component<any, INavbarState> {
   public state = {

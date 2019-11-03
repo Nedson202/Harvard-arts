@@ -1,5 +1,6 @@
 import React from 'react';
-import { Spin, Icon } from 'antd';
+
+import { Icon, Spin } from 'antd';
 import PropTypes from 'prop-types';
 
 import { ISpinnerProps } from '../../../types';

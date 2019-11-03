@@ -1,5 +1,5 @@
-import { addDataToRedis } from '../redis/index';
 import fs from 'fs';
+import { addDataToRedis } from '../redis/index';
 
 interface PlaceIDObject {
   parentPlaceID: string;
@@ -14,11 +14,11 @@ const places: any = [];
 const getUnique = (data: any, keyToCheck: string) => {
   return data.filter((obj: any, pos: any, arr: any) => {
     return arr.map((mapObj: any) => mapObj[keyToCheck])
-    .indexOf(obj[keyToCheck]) === pos;
+      .indexOf(obj[keyToCheck]) === pos;
   });
 };
 
-const placesData = (): Promise<object>  => {
+const placesData = (): Promise<object> => {
   return new Promise((resolve, reject) => {
     return fs.readFile('places.json', 'utf8', (err: any, readResponse: any) => {
       if (err) {

@@ -1,7 +1,9 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Fragment, PureComponent } from 'react';
+
 import { Icon } from 'antd';
 
 import './backToTop.scss';
+
 import { SCROLL } from '../../settings';
 
 import { IBackToTopState } from '../../../types';

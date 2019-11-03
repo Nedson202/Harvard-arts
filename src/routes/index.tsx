@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+
+import Collection from '../Components/Collection';
+import Collections from '../Components/Collections';
 
 import App from '../Components/Main/App';
-import Collections from '../Components/Collections';
-import Collection from '../Components/Collection';
 import NavBar from '../Components/Navbar';
-import Publications from '../Components/Publications';
-import Places from '../Components/Places';
 import NotFound from '../Components/NotFound';
+import Places from '../Components/Places';
+import Publications from '../Components/Publications';
 
 const Routes = () => (
   <Fragment>

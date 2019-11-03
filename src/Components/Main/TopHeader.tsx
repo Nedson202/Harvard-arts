@@ -20,6 +20,6 @@ const TopHeader = () => {
       </div>
     </header>
   );
-}
+};
 
 export default TopHeader;

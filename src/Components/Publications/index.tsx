@@ -1,22 +1,25 @@
 import React, { Component, Fragment } from 'react';
 import { Query } from 'react-apollo';
-import { Tooltip, Button } from 'antd';
 import Dragula from 'react-dragula';
 import HorizontalTimeline from 'react-horizontal-timeline';
 
+import { Button, Tooltip } from 'antd';
+
+import BackToTop from '../BackToTop';
 import SkeletonScreen from '../Preloader/SkeletonScreen';
 import Spinner from '../Preloader/Spinner';
-import BackToTop from '../BackToTop';
 
 import './publications.scss';
 import publicationQuery from './query';
+
+import { client } from '../..';
 import {
-  DATE_VALUES, PUBLICATIONS_TYPENAME, NOT_AVAILABLE_MESSAGE,
-} from '../../settings';
-import {
-  PeopleInitials, PublicationData, FetchMore, PublicationsFetchMore,
-  PublicationsFetchMoreResult,
+  FetchMore, PeopleInitials, PublicationData, PublicationsFetchMore,
+  PublicationsFetchMoreResult, PublicationsQueryResponse,
 } from '../../../types';
+import {
+  DATE_VALUES, NOT_AVAILABLE_MESSAGE, PUBLICATIONS_TYPENAME,
+} from '../../settings';
 
 let page: number = 1;
 
@@ -24,7 +27,7 @@ class Publications extends Component {
   public state = {
     loadingIndicator: false,
     value: 0,
-    dateYear: '1999',
+    dateYear: '2018',
     paginatedResult: 0,
     paginationActive: false,
   };
@@ -47,8 +50,36 @@ class Publications extends Component {
     }
   }
 
-  public handleIndexClick = (index: number) => {
-    this.setState({ value: index, dateYear: DATE_VALUES[index] });
+  public handleIndexClick = async (index: number) => {
+    page = 1;
+
+    const year = DATE_VALUES[index];
+
+    this.setState({ value: index, dateYear: year });
+
+    const response: PublicationsQueryResponse = await client.query({
+      query: publicationQuery,
+      variables: {
+        size: 18,
+        page,
+        year,
+      },
+    });
+
+    const { publicationData: { publications = [] } = {} } = response.data;
+
+    client.writeQuery({
+      query: publicationQuery,
+      data: {
+        publicationData: {
+          publications,
+          __typename: PUBLICATIONS_TYPENAME,
+        },
+      },
+      variables: { size: 18, page: 1, year },
+    });
+
+    page += 1;
   }
 
   public handleInfiniteScroll = (fetchMore: (arg0: FetchMore) => void, year: number) => () => {
@@ -57,7 +88,7 @@ class Publications extends Component {
     fetchMore({
       query: publicationQuery,
       variables: {
-        size: 24,
+        size: 18,
         page,
         year,
       },

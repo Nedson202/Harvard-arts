@@ -95,6 +95,12 @@ export interface CollectionImages {
   primaryimageurl: string;
 }
 
+export interface CollectionResponse {
+  object: {
+    record: object;
+  };
+}
+
 export interface FetchMore {
   query: ({ }) => {};
   variables: object;
@@ -172,6 +178,14 @@ export interface PublicationsFetchMore {
 export interface PublicationsFetchMoreResult {
   publicationData: {
     publications: object[];
+  };
+}
+
+export interface PublicationsQueryResponse {
+  data: {
+    publicationData: {
+      publications: PublicationData[],
+    },
   };
 }
 

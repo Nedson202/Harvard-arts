@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
+
 import { Popover } from 'antd';
 
-import marker from '../../assets/marker.png';
 import { IPointerProps } from '../../../types';
+import marker from '../../assets/marker.png';
 
 const Pointer = (props: IPointerProps) => {
   const { text } = props;
