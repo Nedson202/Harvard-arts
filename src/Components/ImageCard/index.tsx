@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 
-import Spinner from '../Preloader/Spinner';
 import { IImageCardProps } from '../../../types';
+import Spinner from '../Preloader/Spinner';
 
-class ImageCard extends Component<IImageCardProps> {
+class ImageCard extends PureComponent<IImageCardProps> {
   public state = {
     loadedErrorMessage: '',
     imageUrl: '',

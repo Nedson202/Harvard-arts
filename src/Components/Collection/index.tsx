@@ -1,20 +1,22 @@
 import React, { Component, Fragment } from 'react';
 import { Query } from 'react-apollo';
+
 import { Icon } from 'antd';
 
 import './collection.scss';
-import SkeletonScreen from '../Preloader/SkeletonScreen';
+
 import BackToTop from '../BackToTop';
+import SkeletonScreen from '../Preloader/SkeletonScreen';
 
 import { singleObjectQuery } from '../Collections/query';
+
 import {
-  FIELDS_NEEDED, NETWORK_ONLY, BACKGROUND_OVERLAY, CANCEL_BACKGROUND_OVERLAY,
-  NOT_AVAILABLE_MESSAGE, NAV_BAR_ELEMENT, NO_DISPLAY, SCROLL, MOUSE_DOWN,
+  BACKGROUND_OVERLAY, CANCEL_BACKGROUND_OVERLAY, FIELDS_NEEDED, MOUSE_DOWN,
+  NAV_BAR_ELEMENT, NETWORK_ONLY, NO_DISPLAY, NOT_AVAILABLE_MESSAGE, SCROLL,
 } from '../../settings';
 
 import {
-  CollectionDetail, CollectionProps, ContextualText, CollectionGroupValue,
-  FullImageViewValue,
+  CollectionDetail, CollectionGroupValue, CollectionProps, ContextualText,
 } from '../../../types';
 
 class Collection extends Component<CollectionProps> {

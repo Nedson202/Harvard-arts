@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Query, withApollo } from 'react-apollo';
 import { Link } from 'react-router-dom';
+
 import { Button } from 'antd';
 import queryString from 'querystring';
 
@@ -11,16 +12,17 @@ import ImageCard from '../ImageCard';
 import SkeletonScreen from '../Preloader/SkeletonScreen';
 import Spinner from '../Preloader/Spinner';
 
-import { objectsQuery } from './query';
-import noImage from '../../assets/no-image-icon.jpg';
 import searchQuery from '../Search/query';
+import { objectsQuery } from './query';
+
+import noImage from '../../assets/no-image-icon.jpg';
 import {
-  SEARCH_PATH, COLLECTIONS_TYPENAME, READ_QUERY_ERROR,
+  COLLECTIONS_TYPENAME, READ_QUERY_ERROR, SEARCH_PATH,
 } from '../../settings';
 
 import {
-  ICollectionsProps, CollectionImages, FetchMore,
-  CollectionsFetchMoreResult, CollectionsFetchMore,
+  CollectionImages, CollectionsFetchMore, CollectionsFetchMoreResult, FetchMore,
+  ICollectionsProps,
 } from '../../../types';
 
 let page = 1;

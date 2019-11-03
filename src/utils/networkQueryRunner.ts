@@ -1,9 +1,9 @@
-import { ClientObject } from './../../types';
 import { client } from '..';
+import { ClientObject } from './../../types';
 
 const runNetworkQuery =
   (query: string, value: string): Promise<object> => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       try {
         const response = await client.query({
           query,
@@ -18,7 +18,7 @@ const runNetworkQuery =
 
         resolve(response);
       } catch (error) {
-        reject(error);
+        resolve(error);
       }
     });
   };

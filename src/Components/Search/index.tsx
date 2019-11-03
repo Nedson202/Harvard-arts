@@ -1,23 +1,28 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
+
+import { compose, withApollo } from 'react-apollo';
+
+import debounce from 'lodash.debounce';
 import queryString from 'querystring';
 import setQuery from 'set-query-string';
-import debounce from 'lodash.debounce';
-import { compose, withApollo } from 'react-apollo';
 
 import Spinner from '../Preloader/Spinner';
 
 import searchQuery from './query';
+
 import { objectsQuery } from '../Collections/query';
+
 import { runNetworkQuery } from '../../utils';
+
 import {
-  SEARCH_PATH, PREVIOUS_LOCATION, COLLECTIONS_PATH, CLIP_BOARD_DATA_TYPE,
-  COLLECTIONS_TYPENAME,
+  CLIP_BOARD_DATA_TYPE, COLLECTIONS_PATH, COLLECTIONS_TYPENAME,
+  PREVIOUS_LOCATION, SEARCH_PATH,
 } from '../../settings';
 
-import { ISearchProps, ISearchState, EventObject } from '../../../types';
+import { EventObject, ISearchProps, ISearchState } from '../../../types';
 
-class Search extends Component<ISearchProps, ISearchState> {
+class Search extends PureComponent<ISearchProps, ISearchState> {
   public state = {
     value: '',
     toggleCloseIcon: false,
@@ -32,10 +37,19 @@ class Search extends Component<ISearchProps, ISearchState> {
     this.setState({ runningSearch: true });
 
     const response: any = await runNetworkQuery(searchQuery, value);
-    const { searchResults } = response.data;
+    let resultsToDisplay: object[] = [];
 
-    this.writeQueryToCache(searchResults.results || []);
     this.setState({ runningSearch: false });
+
+    if (response.data) {
+      const { searchResults } = response.data;
+
+      resultsToDisplay = searchResults.results || [];
+
+      return;
+    }
+
+    this.writeQueryToCache(resultsToDisplay);
   }, 1000);
 
   public componentDidMount() {

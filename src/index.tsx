@@ -1,16 +1,17 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+
 import AOS from 'aos';
-import { ApolloProvider } from 'react-apollo';
-import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient } from 'apollo-client';
+import { RestLink } from 'apollo-link-rest';
+import { ApolloProvider } from 'react-apollo';
 // tslint:disable
 import 'aos/dist/aos.css';
 import 'antd/dist/antd.css';
 // tslint:enable
 import './index.scss';
-import { RestLink } from 'apollo-link-rest';
 import * as serviceWorker from './serviceWorker';
 
 import Routes from './routes';
@@ -46,7 +47,7 @@ if ((module as any).hot) {
   });
 }
 
-serviceWorker.unregister();
+serviceWorker.register();
 
 export {
   client,

@@ -11,7 +11,7 @@ export const COLLECTIONS_TYPENAME = 'Object';
 
 // Publications
 export const DATE_VALUES = [
-  '1999', '2000', '2001', '2002', '2003',
+  '1999', '2000', '2001', '2002', '2003', '2004', '2005',
   '2013', '2014', '2015', '2016', '2017', '2018',
 ];
 export const PUBLICATIONS_TYPENAME = 'Publications';
