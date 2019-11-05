@@ -4,6 +4,10 @@
   overflow-y: hidden;
   color: white;
 
+  .dark-mode-switch {
+    cursor: pointer;
+    font-size: 20px;
+  }
 
   &__bg {
     position: absolute;
@@ -91,10 +95,6 @@
     &-logo {
       font-size: 35px;
 
-      a {
-        color: rgba(0, 0, 0, 1);
-      }
-
       a:focus {
         text-decoration: none;
       }
@@ -116,10 +116,6 @@
     span {
       padding-left: 35px;
       font-size: 15px;
-
-      a {
-        color: #000;
-      }
 
       a:hover {
         -webkit-transition: all 1s ease;
@@ -321,6 +317,15 @@ span.images {
 
       &-logo {
         font-size: 25px;
+      }
+
+      .dark-mode-switch {
+        margin-left: 20px;
+        margin-right: 5px;
+
+        i {
+          vertical-align: top;
+        }
       }
     }
 

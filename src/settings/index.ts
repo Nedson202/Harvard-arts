@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { IThemeProps } from '../../types';
 
 dotenv.config();
 
@@ -65,8 +66,6 @@ export const FIELDS_NEEDED = [
   'accessionyear', 'accessionmethod', 'title', 'creditline', 'culture',
   'medium', 'primaryimageurl',
 ];
-export const BACKGROUND_OVERLAY = 'rgba(0,0,0,0.6)';
-export const CANCEL_BACKGROUND_OVERLAY = 'rgba(0,0,0,0.0)';
 export const ANT_ICON_COLOR = 'rgba(0,0,0,.25)';
 export const WHITE_BACKGROUND = '#fff';
 export const FORM_ELEMENT = 'form';
@@ -76,6 +75,7 @@ export const GOOGLE_MAPS_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY || '';
 export const SCROLL = 'scroll';
 export const CLICK = 'click';
 export const MOUSE_DOWN = 'mousedown';
+export const STORAGE = 'storage';
 
 export const LEFT_SIDEBAR_NAV_LINKS = [
   {
@@ -94,3 +94,13 @@ export const LEFT_SIDEBAR_NAV_LINKS = [
     link: '/places',
   },
 ];
+
+// Theme
+export const THEME = 'theme';
+export const LIGHT = 'light';
+export const DARK = 'dark';
+export const FLIP_THEME: IThemeProps = {
+  dark: LIGHT,
+  light: DARK,
+};
+export const THEME_ATTRIBUTE = 'data-theme';

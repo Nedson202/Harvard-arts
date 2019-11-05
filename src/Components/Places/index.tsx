@@ -92,7 +92,7 @@ class MapContainer extends PureComponent<IPlacesProps> {
             }
 
             if (error) {
-              loadedData = (<h1>Sorry an error occurred</h1>);
+              loadedData = (<h1>Failed to load map data</h1>);
             }
 
             return (

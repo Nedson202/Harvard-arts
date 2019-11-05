@@ -196,3 +196,7 @@ export interface INavbarState {
 export interface IPointerProps {
   text: string;
 }
+
+export interface IThemeProps {
+  [key: string]: string;
+}

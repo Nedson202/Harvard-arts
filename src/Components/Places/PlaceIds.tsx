@@ -230,7 +230,7 @@ class PlaceIds extends PureComponent<IPlacesProps> {
               }
 
               if (error) {
-                loadedData = (<h1>Sorry an error occurred</h1>);
+                loadedData = (<h3 className='center'>Unable to load place IDs</h3>);
               }
 
               const placeIdsHasProperty: boolean = dataToRender.length > 0;

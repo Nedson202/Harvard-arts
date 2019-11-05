@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Felipa');
+@import './scss/dark-theme.scss';
 
 body {
   margin: 0;
@@ -45,4 +46,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .ant-btn {
   animation: 2s infinite beatHeart;
+}
+
+a {
+  color: rgba(0, 0, 0, 1);
+
+  &:hover {
+    color: unset;
+  }
 }

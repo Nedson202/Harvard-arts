@@ -11,8 +11,8 @@ import SkeletonScreen from '../Preloader/SkeletonScreen';
 import { singleObjectQuery } from '../Collections/query';
 
 import {
-  BACKGROUND_OVERLAY, CANCEL_BACKGROUND_OVERLAY, FIELDS_NEEDED, MOUSE_DOWN,
-  NAV_BAR_ELEMENT, NETWORK_ONLY, NO_DISPLAY, NOT_AVAILABLE_MESSAGE, SCROLL,
+  FIELDS_NEEDED, MOUSE_DOWN, NAV_BAR_ELEMENT, NETWORK_ONLY,
+  NOT_AVAILABLE_MESSAGE, SCROLL,
 } from '../../settings';
 
 import {
@@ -22,6 +22,7 @@ import {
 class Collection extends Component<CollectionProps> {
   public state = {
     fullImageVisible: false,
+    primaryImageUrl: '',
   };
 
   public node: any;
@@ -32,7 +33,6 @@ class Collection extends Component<CollectionProps> {
 
   public componentWillUnmount() {
     window.removeEventListener(MOUSE_DOWN, this.handleClickOutsideFullImage, false);
-    document.body.style.background = CANCEL_BACKGROUND_OVERLAY;
   }
 
   public handleClickOutsideFullImage = (event: any) => {
@@ -43,24 +43,34 @@ class Collection extends Component<CollectionProps> {
     this.cancelImageDisplay();
   }
 
-  public handleFullImageDisplay = () => {
-    document.body.style.background = BACKGROUND_OVERLAY;
+  public handleFullImageDisplay = (value: CollectionGroupValue) => () => {
+    window.scrollTo({
+      top: 0,
+    });
 
-    this.setState({ fullImageVisible: true });
+    this.setState({
+      fullImageVisible: true,
+      primaryImageUrl: value.primaryimageurl,
+    }, () => {
+      const zoomContainer = document.querySelector('.fullImage-display');
+
+      if (zoomContainer) {
+        zoomContainer.setAttribute('id', 'image-zoom');
+        return;
+      }
+    });
   }
 
   public cancelImageDisplay = () => {
-    const navBar = document.getElementById(NAV_BAR_ELEMENT);
+    const { fullImageVisible } = this.state;
 
-    if (!navBar) {
+    if (!fullImageVisible) {
       return;
     }
 
-    this.setState({ fullImageVisible: false });
-
     document.body.style.overflow = SCROLL;
-    navBar.style.background = 'white';
-    document.body.style.background = 'unset';
+
+    this.setState({ fullImageVisible: false });
   }
 
   public contextualText(values: ContextualText[]) {
@@ -110,15 +120,14 @@ class Collection extends Component<CollectionProps> {
 
   public returnVoid = () => 0;
 
-  public toggleFullImageView = (value: CollectionGroupValue) => {
-    const { fullImageVisible } = this.state;
+  public toggleFullImageView = () => {
+    const { fullImageVisible, primaryImageUrl } = this.state;
     const navElement = document.getElementById(NAV_BAR_ELEMENT);
 
     if (!fullImageVisible || !navElement) {
       return;
     }
 
-    navElement.style.background = NO_DISPLAY;
     document.body.style.overflowY = 'hidden';
 
     return (
@@ -135,8 +144,7 @@ class Collection extends Component<CollectionProps> {
           alt='collection pix-file on display'
           id='fullImage'
           onFocus={this.returnVoid}
-          onMouseOver={this.handleFullImageDisplay}
-          src={value.primaryimageurl}
+          src={primaryImageUrl}
         />
       </div>
     );
@@ -166,7 +174,7 @@ class Collection extends Component<CollectionProps> {
                     alt=''
                     className='collection-header__image'
                     height='100px'
-                    onClick={this.handleFullImageDisplay}
+                    onClick={this.handleFullImageDisplay(value)}
                     src={value.primaryimageurl}
                     width='100px'
                   />
@@ -174,8 +182,6 @@ class Collection extends Component<CollectionProps> {
                     {value.title}
                   </h1>
                 </div>
-
-                {this.toggleFullImageView(value)}
 
                 <section className='collection-data'>
                   <div>
@@ -241,14 +247,14 @@ class Collection extends Component<CollectionProps> {
 
           if (error) {
             loadedData = (
-              <Fragment>
-                <h1>Sorry an error occurred</h1>
-              </Fragment>
+              <h1 className='center'>Sorry an error occurred</h1>
             );
           }
 
           return (
             <Fragment>
+              {this.toggleFullImageView()}
+
               <div className='collection'>
                 {loadedData}
               </div>
