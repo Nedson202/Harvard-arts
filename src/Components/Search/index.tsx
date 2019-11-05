@@ -45,8 +45,6 @@ class Search extends PureComponent<ISearchProps, ISearchState> {
       const { searchResults } = response.data;
 
       resultsToDisplay = searchResults.results || [];
-
-      return;
     }
 
     this.writeQueryToCache(resultsToDisplay);

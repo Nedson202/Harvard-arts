@@ -1,0 +1,97 @@
+[data-theme="dark"] {
+  body {
+    background: #131b2f;
+    color: #e4e4e4;
+
+    a {
+      color: #e4e4e4;
+    }
+
+    i {
+      color: #e4e4e4;
+    }
+  }
+
+  .clip-header {
+    &__nav {
+      background: #080d17;
+
+      .search {
+        border: 1px solid #e4e4e4;
+        background: #efefef;
+
+        &::placeholder {
+          color: #4c4c4c;
+        }
+
+        &:focus {
+          background: #e4e4e4;
+          box-shadow: none;
+          border: 1px solid #e4e4e4;
+        }
+      }
+    }
+
+    &__menu {
+      span {
+        .active {
+          border-bottom: 1px solid #e4e4e4;
+        }
+
+        a:hover {
+          border-bottom: 1px solid #e4e4e4;
+        }
+      }
+    }
+  }
+
+  .back-to-top {
+    background: #080d17;
+    border: 1px solid #7b7b7b;
+  }
+
+  .places-sidenav {
+    border-right: 1px solid #e4e4e4;
+    background: unset;
+    color: #e4e4e4;
+  }
+
+  .publications-grid__item {
+    border: 1px solid #7b7b7b;
+    box-shadow: unset;
+
+    &-people div {
+      border: 1px solid #7b7b7b;
+    }
+
+    &-header, &-body {
+      border-bottom-color: #7b7b7b;
+    }
+  }
+
+  .ant-spin {
+    color: #e4e4e4;
+  }
+
+  .collection-data {
+    &__group {
+      div {
+        border: 1px solid #7b7b7b;
+      }
+    }
+
+    &__head {
+      border-left-color:#7b7b7b;
+    }
+  }
+
+  .sidenav {
+    background: #131b2f;
+    color: #e4e4e4;
+
+    a.active {
+      color: #e4e4e4;
+      border-left-color:#7b7b7b;
+    }
+  }
+}

@@ -7,10 +7,11 @@ import Search from '../Search';
 import SideNav from '../SideNav';
 
 import { INavbarState } from '../../../types';
+import { contrast } from '../../assets';
 import {
-  CLICK, CUSTOM_NAV_ELEMENT, MAXIMUM_SCROLL_DISTANCE, MINIMUM_SCROLL_DISTANCE,
-  NAV_BAR_BOX_SHADOW, NAV_BAR_ELEMENT, NO_DISPLAY,
-  PLACES_PATH, ROOT_PATH, SCROLL,
+  CLICK, CUSTOM_NAV_ELEMENT, FLIP_THEME, LIGHT,
+  MAXIMUM_SCROLL_DISTANCE, MINIMUM_SCROLL_DISTANCE, NAV_BAR_BOX_SHADOW,
+  NAV_BAR_ELEMENT, NO_DISPLAY, PLACES_PATH, ROOT_PATH, SCROLL, STORAGE, THEME, THEME_ATTRIBUTE,
 } from '../../settings';
 
 class NavBar extends Component<any, INavbarState> {
@@ -21,6 +22,10 @@ class NavBar extends Component<any, INavbarState> {
   public node: any;
 
   public componentDidMount() {
+    this.loadTheme();
+
+    window.addEventListener(STORAGE, this.handleDarkModeToggle);
+
     window.addEventListener(SCROLL, this.handlePageScroll, {
       capture: true,
       passive: true,
@@ -28,6 +33,7 @@ class NavBar extends Component<any, INavbarState> {
   }
 
   public componentWillUnmount() {
+    window.removeEventListener(STORAGE, this.handleDarkModeToggle);
     window.removeEventListener(SCROLL, this.handlePageScroll, false);
   }
 
@@ -47,6 +53,27 @@ class NavBar extends Component<any, INavbarState> {
     this.setState((prevState) => ({
       isSideNavOpen: !prevState.isSideNavOpen,
     }));
+  }
+
+  public toggleDarkMode = () => {
+    const currentTheme: string = window.localStorage.getItem(THEME) || LIGHT;
+    const theme: string = FLIP_THEME[currentTheme];
+
+    window.localStorage.setItem(THEME, theme);
+    document.documentElement.setAttribute(THEME_ATTRIBUTE, theme);
+  }
+
+  public handleDarkModeToggle = (event: any) => {
+    if (event.key !== THEME) {
+      return;
+    }
+
+    this.loadTheme();
+  }
+
+  public loadTheme = () => {
+    const currentTheme = window.localStorage.getItem(THEME) || LIGHT;
+    window.document.documentElement.setAttribute(THEME_ATTRIBUTE, currentTheme);
   }
 
   public handleOutsideClick = (event: any) => {
@@ -78,6 +105,17 @@ class NavBar extends Component<any, INavbarState> {
     ) {
       navbar.style.boxShadow = NAV_BAR_BOX_SHADOW;
     }
+  }
+
+  public renderThemeButton() {
+    return (
+      <span className='dark-mode-switch'>
+        <Icon
+          type='bulb'
+          onClick={this.toggleDarkMode}
+        />
+      </span>
+    );
   }
 
   public render() {
@@ -112,12 +150,14 @@ class NavBar extends Component<any, INavbarState> {
             <span>
               <NavLink to='/places'>Places</NavLink>
             </span>
+            {this.renderThemeButton()}
           </div>
           <div className='clip-header__mobile-menu'>
             <Icon
               type='menu-fold'
               onClick={this.toggleMobileNav}
             />
+            {this.renderThemeButton()}
           </div>
         </div>
       </Fragment>

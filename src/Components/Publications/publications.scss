@@ -65,10 +65,9 @@
         justify-content: space-between;
 
         div {
-          height: 59.58px;
           line-height: 45px;
+          flex-basis: 17%;
           border-radius: 50%;
-          width: calc(1/4*100% - (1 - 1/4)*25px);
           box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.13);
           margin-bottom: 15px;
           cursor: pointer;

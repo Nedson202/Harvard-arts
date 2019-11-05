@@ -120,9 +120,13 @@ class Publications extends Component {
     });
   }
 
-  public loadMoreButton(resultLength: number) {
+  public loadMoreButton(resultLength: number, loadingMore: boolean) {
     const { paginatedResult, paginationActive } = this.state;
     const isPaginatedResult = paginatedResult === 0 || paginatedResult < 18;
+
+    if (loadingMore) {
+      return <Spinner />;
+    }
 
     if ((paginationActive && !isPaginatedResult) || (!paginationActive && resultLength >= 18)) {
       return (
@@ -195,7 +199,7 @@ class Publications extends Component {
                 </p>
               </div>
               <div>
-                <p><strong>People &amp; Bodies</strong></p>
+                <p className='center'><strong>People &amp; Bodies</strong></p>
                 <div className='publications-grid__item-people'>
                   {this.renderPeopleInitials(publication.people || [])}
                 </div>
@@ -257,11 +261,7 @@ class Publications extends Component {
           }
 
           if (error) {
-            loadedTimelineData = (
-              <Fragment>
-                <h1>Sorry an error occurred</h1>
-              </Fragment>
-            );
+            loadedTimelineData = <h1 className='center'>Sorry an error occurred</h1>;
           }
 
           return (
@@ -293,8 +293,7 @@ class Publications extends Component {
                   role='button'
                   onClick={this.handleInfiniteScroll(fetchMore, parsedNumber)}
                 >
-                  {this.loadMoreButton(publications.length)}
-                  {loadingIndicator && <Spinner />}
+                  {this.loadMoreButton(publications.length, loadingIndicator)}
                 </span>
               </div>
               <BackToTop />

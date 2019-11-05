@@ -67,3 +67,5 @@ Logs
 .netlify
 
 build
+
+.vscode

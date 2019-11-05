@@ -196,9 +196,7 @@ class Collections extends Component<ICollectionsProps> {
 
     if (error) {
       return (
-        <Fragment>
-          <h1>Sorry an error occurred</h1>
-        </Fragment>
+        <h1 className='center'>Sorry an error occurred</h1>
       );
     }
 
