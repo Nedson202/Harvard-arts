@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const objectsQuery = gql`
   query Object($size: Int! $page: Int!) {
-    objects(size: $size, page: $page) @rest(type: "Object", path: "object?size={args.size}&page={args.page}") {
+    objects(size: $size, page: $page) @rest(type: "Object", path: "objects?size={args.size}&page={args.page}") {
       records
     }
   }

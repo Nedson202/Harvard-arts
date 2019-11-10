@@ -1,70 +1,117 @@
-# Harvard-arts
+<h1 align="center">
+Harvard-arts
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+Built on Harvard's Art Museum robust API, ART Museum offers a different feel of art collections and publications from the Harvard Art Museum archives.
+</p>
+<p align="center">
+The Places page also leverages the places API related to collections in the Art Archives to deliver you a visual representation of these data using the Google Maps API.
+There is also support for theme switching betwen light and dark mode.
+</p>
 
-## Available Scripts
+<p align="center">
+  <img width="400" height="250" src="./.github/assets/readme-image-1.png">
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <img width="400" height="250" src="./.github/assets/readme-image-2.png">
+</p>
 
-In the project directory, you can run:
+---
 
-### `npm start`
+# Table of Contents
+* [Demo](https://github.com/Nedson202/Harvard-arts#demo)
+* [Features](https://github.com/Nedson202/Harvard-arts#features)
+* [Technologies](https://github.com/Nedson202/Harvard-arts#technologies)
+* [Installation Setup](https://github.com/Nedson202/Harvard-arts#installation-setup)
+* [Language](https://github.com/Nedson202/Harvard-arts#language)
+* [Coding style](https://github.com/Nedson202/Harvard-arts#style-guide)
+* [Dependencies](https://github.com/Nedson202/Harvard-arts#dependencies)
+* [License](https://github.com/Nedson202/Harvard-arts#license)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Demo
+Here is a working live demo: https://art-museum-harvard.netlify.com
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Features
+* View art collection objects
+* Get detailed information of an object
+* View a grid of publications
+* Filter publications via a publications timeline
+* Get a visual representation of the location of objects using Google Maps API
+* Search for collection object with full-text search support via criteria like title, century, accessionmethod, period, technique, classification, department, culture, medium,verificationleveldescription
+* PWA support
 
-### `npm test`
+## Technologies
+* React
+* Apollo-client
+* Google Maps API
+* Ant Design - A design system with values of Nature and Determinacy for better user experience of enterprise applications. https://ant.design
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation Setup
 
-### `npm run build`
+* **Clone repo:**
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  Open **CMD(command prompt)** for windows users, or any other terminal you use.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+  ```
+    git clone https://github.com/Nedson202/Harvard-arts.git
+  ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* **Install project dependencies:**
 
-### `npm run eject`
+  This codebase uses the yarn package manager.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  Enter the following on your Terminal/CMD to change into the directory of the cloned repo and install all app dependencies
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  ```
+    Install the yarn package manager if you don't have it(optional).
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    $ npm i -g yarn
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+    Change directory to cloned repo (Harvard-arts)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    $ cd Harvard-arts
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    Install all dependencies
 
-### Code Splitting
+    $ yarn
+  ```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-### Analyzing the Bundle Size
+* **Start the app:** Enter the following on your terminal/cmd to start the app
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+  ```
+    $ yarn start
+  ```
 
-### Making a Progressive Web App
+* **Open browser**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+  ```
+    Navigate to http://localhost:3000 on the browser
+  ```
 
-### Advanced Configuration
+* **Additional setup:** This app uses the dotenv package to load environment variables. For more info visit [dotenv](https://www.npmjs.com/package/dotenv).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+  * Create a .env file in the root directory of the codebase
+  * Copy the content of the .env-sample file and add their corresponding values appropriately.
+  * Use the following guide to get a Google Maps API key: https://developers.google.com/maps/documentation/javascript/get-api-key
 
-### Deployment
+## Language
+* Typescript
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+## Style Guide
+* Tslint
 
-### `npm run build` fails to minify
+## Dependencies
+> Click [here](https://github.com/Nedson202/Harvard-arts/blob/develop/package.json) to view all dependencies.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## License
+
+> You can check out the full license [here](https://github.com/Nedson202/Harvard-arts/blob/develop/LICENSE)
+
+This project is licensed under the terms of the MIT license.
+
