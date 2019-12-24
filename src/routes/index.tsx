@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Collection from '../Components/Collection';
 import Collections from '../Components/Collections';
 
-import App from '../Components/Main/App';
+import Base from '../Components/Base';
 import NavBar from '../Components/Navbar';
 import NotFound from '../Components/NotFound';
 import Places from '../Components/Places';
@@ -14,7 +14,7 @@ const Routes = () => (
   <Fragment>
     <NavBar />
     <Switch>
-      <Route path='/' component={App} exact={true} />
+      <Route path='/' component={Base} exact={true} />
       <Route path='/collections' component={Collections} exact={true} />
       <Route path='/collections/:id' component={Collection} exact={true} />
       <Route path='/publications' component={Publications} exact={true} />

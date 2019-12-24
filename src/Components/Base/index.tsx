@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import BackToTop from '../BackToTop';
 import TopHeader from './TopHeader';
 
 import {
@@ -9,9 +10,8 @@ import {
 import {
   CUSTOM_NAV_ELEMENT, HORIZONTAL_SCROLL_DISTANCE, NAV_BAR_ELEMENT, SCROLL,
 } from '../../settings';
-import BackToTop from '../BackToTop';
 
-class App extends Component {
+class Base extends Component {
   public componentDidMount() {
     window.addEventListener(SCROLL, this.toggleNav);
   }
@@ -58,9 +58,8 @@ class App extends Component {
               </span>
               <div className='description'>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Contains detailed information on the items in the Harvard
+                  Art Museums collections.
                 </p>
               </div>
             </div>
@@ -74,9 +73,9 @@ class App extends Component {
               </span>
               <div className='description'>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Contains information on publications that have been written
+                  about or contain images of artworks in the
+                  Harvard Art Museums collection.
                 </p>
               </div>
             </div>
@@ -123,4 +122,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Base;

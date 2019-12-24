@@ -11,7 +11,7 @@ import { ApolloProvider } from 'react-apollo';
 import 'aos/dist/aos.css';
 import 'antd/dist/antd.css';
 // tslint:enable
-import './index.scss';
+import './scss/index.scss';
 import * as serviceWorker from './serviceWorker';
 
 import Routes from './routes';

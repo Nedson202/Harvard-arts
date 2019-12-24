@@ -35,6 +35,8 @@ There is also support for theme switching betwen light and dark mode.
 ## Demo
 Here is a working live demo: https://art-museum-harvard.netlify.com
 
+The Backend project is located at https://github.com/Nedson202/Harvard-arts-reverse-proxy
+
 ## Features
 * View art collection objects
 * Get detailed information of an object
