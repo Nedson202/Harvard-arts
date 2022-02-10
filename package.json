@@ -43,7 +43,7 @@
     "info-logger": "0.1.2",
     "lodash.debounce": "^4.0.8",
     "morgan": "^1.9.1",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "pg": "^7.9.0",
     "prop-types": "^15.7.2",
     "querystring": "^0.2.0",
